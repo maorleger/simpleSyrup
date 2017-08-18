@@ -16,6 +16,7 @@ defmodule SimpleSyrupWeb.Router do
   scope "/", SimpleSyrupWeb do
     pipe_through :browser # Use the default browser stack
 
+    resources "/events", EventController
     get "/", PageController, :index
   end
 
