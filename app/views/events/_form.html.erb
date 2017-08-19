@@ -1,7 +1,7 @@
 <%= form_with(model: event, local: true) do |form| %>
   <% if event.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <h2><%= pluralize(event.errors.count, 'error') %> prohibited this event from being saved:</h2>
 
       <ul>
       <% event.errors.full_messages.each do |message| %>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :event_name %>
+    <%= form.text_field :name, id: :event_name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_field :description, id: :event_description %>
+    <%= form.text_field :description, id: :event_description, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :start_date %>
-    <%= form.date_select :start_date, id: :event_start_date %>
+    <%= form.text_field :start_date, id: :event_start_date, class: 'form-control', type: 'date', value: Date.today %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :num_days %>
-    <%= form.number_field :num_days, id: :event_num_days %>
+    <%= form.number_field :num_days, id: :event_num_days, class: 'form-control', type: 'number', value: 1 %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

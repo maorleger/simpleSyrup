@@ -29,11 +29,18 @@ RSpec.describe EventsController, type: :controller do
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Test name',
+      description: 'Test description',
+      start_date: DateTime.now,
+      num_days: 1
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      num_days: 0
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -91,13 +98,23 @@ RSpec.describe EventsController, type: :controller do
         post :create, params: {event: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
+
+      it "validates that date cannot be in the past" do
+        post :create, params: {event: valid_attributes.merge({start_date: DateTime.now - 2.days})}
+        expect(response).to be_success
+      end
     end
   end
 
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'New Name',
+          description: 'New Description',
+          start_date: DateTime.now + 2.days,
+          num_days: 1
+        }
       }
 
       it "updates the requested event" do

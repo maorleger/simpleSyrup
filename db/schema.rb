@@ -13,15 +13,15 @@
 ActiveRecord::Schema.define(version: 20170819144530) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "events", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.date "start_date"
-    t.integer "num_days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'events', force: :cascade do |t|
+    t.string 'name'
+    t.string 'description'
+    t.date 'start_date'
+    t.integer 'num_days'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
 end
