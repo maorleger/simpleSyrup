@@ -11,6 +11,7 @@ defmodule SimpleSyrup.Events.Event do
     field :name, :string
     field :num_days, :integer
     field :start_date, :date
+    belongs_to :user, SimpleSyrup.Users.User
 
     timestamps()
   end
