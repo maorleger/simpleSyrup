@@ -20,5 +20,5 @@
   <%= @event.num_days %>
 </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-info' %>
+<%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
