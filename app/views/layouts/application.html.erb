@@ -9,7 +9,23 @@
   </head>
 
   <body>
-    <div class="container">
+  <div class="userButtons">
+    <ul>
+      <% if user_signed_in? %>
+        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <li><%= link_to "Login", new_user_session_path %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="flash">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+
+  <div class="container">
       <%= yield %>
     </div>
   </body>
