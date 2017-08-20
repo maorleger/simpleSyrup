@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   validates :num_days, numericality: { greater_than: 0}
   validate :start_date_cannot_be_in_the_past
+  validates_presence_of :name
 
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date < Date.today

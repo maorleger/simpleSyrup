@@ -1,14 +1,13 @@
 <%= form_with(model: event, local: true) do |form| %>
   <% if event.errors.any? %>
-    <p id="alert alert-danger">
-      <h2><%= pluralize(event.errors.count, 'error') %> prohibited this event from being saved:</h2>
-
+    <div class="alert alert-danger" role="alert">
+      <p>Oh oh, looks like there were errors on the page</p>
       <ul>
       <% event.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
-    </p>
+    </div>
   <% end %>
 
   <div class="form-group">
