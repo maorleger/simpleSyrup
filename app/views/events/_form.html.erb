@@ -30,6 +30,15 @@
     <%= form.number_field :num_days, id: :event_num_days, class: 'form-control', type: 'number', value: 1, min: 1 %>
   </div>
 
+  <div class="participants">
+    <h2>participants</h2>
+    <%=
+      collection_check_boxes(:event, :user_ids, User.all, :id, :email) do |u|
+        u.label(class: 'participant__label') { u.check_box(class: 'participant__checkbox') + u.text }
+      end
+    %>
+  </div>
+
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

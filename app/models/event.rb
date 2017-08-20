@@ -3,6 +3,9 @@ class Event < ApplicationRecord
   validate :start_date_cannot_be_in_the_past
   validates_presence_of :name
 
+  has_many :participants
+  has_many :users, through: :participants
+
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date < Date.today
       errors.add(:start_date, "can't be in the past")
