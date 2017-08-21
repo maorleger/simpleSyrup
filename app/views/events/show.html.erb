@@ -22,3 +22,20 @@
 
 <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-info' %>
 <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
+
+
+<h2>tasks</h2>
+<table class="table">
+  <thead>
+    <th>Completed?</th>
+    <th>Description</th>
+    <th>Owner</th>
+  </thead>
+  <% @event.tasks.each do |task| %>
+    <tr>
+      <td><%= task.completed %></td>
+      <td><%= task.description %></td>
+      <td><%= task.user.try(:email) %></td>
+    </tr>
+  <% end %>
+</table>
