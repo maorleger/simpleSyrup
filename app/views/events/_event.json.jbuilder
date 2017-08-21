@@ -1,5 +1,5 @@
 json.extract! event, :id, :name, :description, :start_date, :num_days, :created_at, :updated_at, :lat, :lng, :participants
-json.participants @event.participants do |participant|
+json.participants event.participants do |participant|
   json.id participant.id
   json.userId participant.user.id
   json.email participant.user.email
