@@ -14,4 +14,8 @@ class Event < ApplicationRecord
       errors.add(:start_date, "can't be in the past")
     end
   end
+
+  def end_date
+    start_date + (num_days - 1).days
+  end
 end
