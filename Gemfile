@@ -33,6 +33,8 @@ gem 'bootstrap', '~> 4.0.0.beta'
 # gem 'bootstrap-sass'
 gem 'jquery-rails'
 
+gem 'activerecord-reset-pk-sequence'
+
 
 # user management
 gem 'devise'

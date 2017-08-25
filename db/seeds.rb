@@ -1,3 +1,13 @@
+# Expense.destroy_all
+# Participant.destroy_all
+# Event.destroy_all
+# User.destroy_all
+
+[Expense, Participant, Event, User].each do |c|
+  c.destroy_all
+  c.reset_pk_sequence
+end
+
 event = Event.create!(
   name: 'Park Day!',
   description: 'Kicking it in the park',
