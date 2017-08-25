@@ -25,5 +25,3 @@ test:
 production:
   <<: *default
   database: simplesyrup_production
-  username:
-  password:
