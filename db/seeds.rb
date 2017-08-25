@@ -63,3 +63,10 @@ e2 = Expense.create!(
   description: 'Gas',
   date: Date.today - 5.days
 )
+
+event2 = Event.create!(
+  name: 'My far future event',
+  description: 'I havent invited anyone nor did I set anything up',
+  start_date: Date.today + 2.years,
+  num_days: 5
+)
