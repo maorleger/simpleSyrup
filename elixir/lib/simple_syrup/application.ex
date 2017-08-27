@@ -2,7 +2,7 @@ defmodule SimpleSyrup.Application do
   @moduledoc false
 
   use Application
-  alias SimpleSyrup.Endpoint
+  alias SimpleSyrupWeb.Endpoint
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
