@@ -19,6 +19,12 @@ defmodule SimpleSyrupWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/auth", SimpleSyrupWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SimpleSyrupWeb do
   #   pipe_through :api

@@ -25,4 +25,5 @@ defmodule SimpleSyrup.OAuth.GoogleTest do
     url = Google.authorize_url!(param: "test")
     assert ^url = "https://accounts.google.com/o/oauth2/auth?client_id=test_client&param=test&redirect_uri=test_uri&response_type=code"
   end
+
 end
