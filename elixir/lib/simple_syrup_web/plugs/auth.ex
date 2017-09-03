@@ -21,11 +21,13 @@ defmodule SimpleSyrupWeb.Plugs.Auth do
 
   defp get_or_create_user(conn) do
     email = get_session(conn, :oauth_email)
+    IO.inspect email
     if email do
       user_changeset = case Repo.get_by(User, email: email) do
         nil -> %User{email: email}
         user -> user
       end
+      IO.inspect user_changeset
 
       {:ok, user} =
         user_changeset
