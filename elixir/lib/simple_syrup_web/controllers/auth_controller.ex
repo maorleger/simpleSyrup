@@ -1,17 +1,42 @@
 defmodule SimpleSyrupWeb.AuthController do
   use SimpleSyrupWeb, :controller
-
-  alias SimpleSyrup.OAuth.Google
+  @google_api Application.get_env(:simple_syrup, :google_api)
 
   def index(conn, %{"provider" => provider}) do
     redirect conn, external: authorize_url!(provider)
   end
 
   defp authorize_url!("google") do
-    Google.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
+    @google_api.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   end
 
   defp authorize_url!(provider) do
     raise "No matching provider for #{provider} in authorize_url!"
   end
+
+  def callback(conn, %{"provider" => provider, "code" => code}) do
+    client = get_token!(provider, code)
+    %{email: email} = get_user!(provider, client)
+
+    conn
+    |> put_session(:oauth_email, email)
+    |> redirect(to: page_path(conn, :index))
+  end
+
+  defp get_token!("google", code) do
+    @google_api.get_token!(code)
+  end
+
+  defp get_token!(provider, code) do
+    raise "No matching provider for #{provider} with code #{code} in get_token!"
+  end
+
+  defp get_user!("google", client) do
+    @google_api.get_user!(client)
+  end
+
+  defp get_user!(provider, _) do
+    raise "No matching provider for #{provider} in get_user!"
+  end
+  # need to implement callback next!!!!!!!!!!
 end

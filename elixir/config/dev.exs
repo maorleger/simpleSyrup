@@ -56,3 +56,5 @@ config :simple_syrup, SimpleSyrup.Repo,
   database: "simple_syrup_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :simple_syrup, :google_api, SimpleSyrup.OAuth.Google.LiveClient

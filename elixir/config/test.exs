@@ -17,3 +17,5 @@ config :simple_syrup, SimpleSyrup.Repo,
   database: "simple_syrup_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :simple_syrup, :google_api, SimpleSyrup.OAuth.Google.InMemory

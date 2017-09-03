@@ -1,12 +1,15 @@
-defmodule SimpleSyrup.OAuth.Google do
+defmodule SimpleSyrup.OAuth.Google.LiveClient do
   @moduledoc """
 
     Google OAuth Strategy
 
   """
+  @behaviour SimpleSyrup.OAuth.Google
 
   alias OAuth2.Client
   alias OAuth2.Strategy.AuthCode
+
+  use OAuth2.Strategy
 
   def client do
     client(
@@ -20,8 +23,15 @@ defmodule SimpleSyrup.OAuth.Google do
     Client.authorize_url!(client(), params)
   end
 
-  def authorize_url(client, params) do
-    AuthCode.authorize_url(client, params)
+  def get_token!(code) do
+    params = [code: code]
+    Client.get_token!(client(), Keyword.merge(params, client_secret: client().client_secret))
+  end
+
+  def get_user!(client) do
+    user_url = "https://www.googleapis.com/plus/v1/people/me/openIdConnect"
+    %{body: user} = Client.get!(client, user_url)
+    %{email: user["email"]}
   end
 
   defp client(
@@ -38,5 +48,17 @@ defmodule SimpleSyrup.OAuth.Google do
       authorize_url: "https://accounts.google.com/o/oauth2/auth",
       token_url: "https://accounts.google.com/o/oauth2/token"
     ])
+  end
+
+  # strategy callbacks
+
+  def authorize_url(client, params) do
+    AuthCode.authorize_url(client, params)
+  end
+
+  def get_token(client, params, headers) do
+    client
+    |> put_header("Accept", "application/json")
+    |> AuthCode.get_token(params, headers)
   end
 end

@@ -1,6 +1,6 @@
 defmodule SimpleSyrup.OAuth.GoogleTest do
   use SimpleSyrup.DataCase
-  alias SimpleSyrup.OAuth.Google
+  alias SimpleSyrup.OAuth.Google.LiveClient
 
   setup_all do
     System.put_env("GOOGLE_CLIENT_ID", "test_client")
@@ -9,9 +9,9 @@ defmodule SimpleSyrup.OAuth.GoogleTest do
   end
 
   test "client" do
-    client = Google.client
+    client = LiveClient.client
     assert ^client = %OAuth2.Client{
-      strategy: SimpleSyrup.OAuth.Google,
+      strategy: SimpleSyrup.OAuth.Google.LiveClient,
       client_id: "test_client",
       client_secret: "test_secret",
       redirect_uri: "test_uri",
@@ -22,7 +22,7 @@ defmodule SimpleSyrup.OAuth.GoogleTest do
   end
 
   test "authorize_url!" do
-    url = Google.authorize_url!(param: "test")
+    url = LiveClient.authorize_url!(param: "test")
     assert ^url = "https://accounts.google.com/o/oauth2/auth?client_id=test_client&param=test&redirect_uri=test_uri&response_type=code"
   end
 
