@@ -1,5 +1,6 @@
 defmodule SimpleSyrupWeb.AuthController do
   use SimpleSyrupWeb, :controller
+
   @google_api Application.get_env(:simple_syrup, :google_api)
 
   def index(conn, %{"provider" => provider}) do

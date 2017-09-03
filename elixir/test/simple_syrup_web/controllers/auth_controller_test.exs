@@ -20,5 +20,4 @@ defmodule SimpleSyrupWeb.AuthControllerTest do
     assert ^oauth_email = "test@example.com"
     assert redirected_to(conn) =~ page_path(conn, :index)
   end
-
 end
