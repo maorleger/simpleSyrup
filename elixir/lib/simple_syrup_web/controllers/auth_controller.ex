@@ -7,6 +7,13 @@ defmodule SimpleSyrupWeb.AuthController do
     redirect conn, external: authorize_url!(provider)
   end
 
+  def destroy(conn, _params) do
+    conn
+    |> delete_session(:oauth_email)
+    |> delete_session(:access_token)
+    |> redirect(to: page_path(conn, :index))
+  end
+
   defp authorize_url!("google") do
     @google_api.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   end
@@ -17,10 +24,12 @@ defmodule SimpleSyrupWeb.AuthController do
 
   def callback(conn, %{"provider" => provider, "code" => code}) do
     client = get_token!(provider, code)
+    IO.inspect(get_user!(provider, client))
     %{email: email} = get_user!(provider, client)
 
     conn
     |> put_session(:oauth_email, email)
+    |> configure_session(renew: true)
     |> redirect(to: page_path(conn, :index))
   end
 

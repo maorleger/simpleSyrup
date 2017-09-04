@@ -23,6 +23,7 @@ defmodule SimpleSyrupWeb.Router do
   scope "/auth", SimpleSyrupWeb do
     pipe_through :browser
 
+    get "/destroy", AuthController, :destroy
     get "/:provider", AuthController, :index
     get "/:provider/callback", AuthController, :callback
   end

@@ -16,11 +16,22 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
-            <li>
+            <%= if @current_user do %>
+              <li>
+                Welcome <%= @current_user.email %>
+              </li>
+              <li>
+                <%= link to: auth_path(@conn, :destroy) do %>
+                  Sign out
+                <% end %>
+              </li>
+            <% else %>
+              <li>
               <%= link to: auth_path(@conn, :index, "google") do %>
                 Sign in with Google
               <% end %>
-            </li>
+              </li>
+            <% end %>
           </ul>
         </nav>
         <span class="logo"></span>

@@ -30,7 +30,7 @@ defmodule SimpleSyrup.OAuth.Google.InMemory do
   end
 
   def get_user!(_) do
-    %{email: "test@example.com"}
+    %{email: "test@example.com", first_name: "test", last_name: "example", avatar_url: "https://foo.bar"}
   end
 
   defp client(

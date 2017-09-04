@@ -11,11 +11,22 @@ defmodule SimpleSyrupWeb.AuthControllerTest do
     assert redirected_to(conn) =~ @google_api.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   end
 
+  test "GET /auth/destroy", %{conn: conn} do
+    conn =
+      conn
+      |> init_test_session(oauth_email: "test@example.com")
+      |> get("/auth/destroy")
+
+    assert redirected_to(conn) == page_path(conn, :index)
+    assert get_session(conn, :oauth_email) == nil
+  end
+
   test "#callback", %{conn: conn} do
     conn = 
       conn
       |> init_test_session(%{})
       |> AuthController.callback(%{"provider" => "google", "code" => "foo"})
+
     oauth_email = get_session(conn, :oauth_email)
     assert ^oauth_email = "test@example.com"
     assert redirected_to(conn) =~ page_path(conn, :index)

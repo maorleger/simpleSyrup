@@ -10,5 +10,5 @@ defmodule SimpleSyrup.OAuth.Google do
   @callback client :: %OAuth2.Client{}
   @callback authorize_url! :: String
   @callback get_token!(code :: String) :: String
-  @callback get_user!(client :: OAuth2.Client) :: %{body: %{email: String}}
+  @callback get_user!(client :: OAuth2.Client) :: %{body: %{avatar_url: String, email: String, first_name: String, last_name: String}}
 end
