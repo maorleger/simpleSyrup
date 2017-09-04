@@ -28,7 +28,9 @@ defmodule SimpleSyrupWeb.AuthControllerTest do
       |> AuthController.callback(%{"provider" => "google", "code" => "foo"})
 
     oauth_email = get_session(conn, :oauth_email)
+    user_profile = get_session(conn, :user_data)
     assert ^oauth_email = "test@example.com"
+    assert ^user_profile = %{avatar_url: "https://foo.bar", email: "test@example.com", first_name: "test", last_name: "example"}
     assert redirected_to(conn) =~ page_path(conn, :index)
   end
 end

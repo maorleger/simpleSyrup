@@ -1,6 +1,5 @@
 defmodule SimpleSyrup.OAuth.GoogleTest do
   use SimpleSyrup.DataCase
-  alias SimpleSyrup.OAuth.Google.LiveClient
 
   @google_api Application.get_env(:simple_syrup, :google_api)
 

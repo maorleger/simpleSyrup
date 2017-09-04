@@ -31,7 +31,7 @@ defmodule SimpleSyrup.OAuth.Google.LiveClient do
   def get_user!(client) do
     user_url = "https://www.googleapis.com/plus/v1/people/me/openIdConnect"
     %{body: user} = Client.get!(client, user_url)
-    x = %{avatar_url: user["picture"], email: user["email"], first_name: user["given_name"], last_name: user["family_name"]}
+    %{avatar_url: user["picture"], email: user["email"], first_name: user["given_name"], last_name: user["family_name"]}
   end
 
   defp client(

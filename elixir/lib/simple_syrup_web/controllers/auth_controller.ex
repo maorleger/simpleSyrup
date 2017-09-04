@@ -10,6 +10,7 @@ defmodule SimpleSyrupWeb.AuthController do
   def destroy(conn, _params) do
     conn
     |> delete_session(:oauth_email)
+    |> delete_session(:user_data)
     |> delete_session(:access_token)
     |> redirect(to: page_path(conn, :index))
   end
@@ -24,11 +25,11 @@ defmodule SimpleSyrupWeb.AuthController do
 
   def callback(conn, %{"provider" => provider, "code" => code}) do
     client = get_token!(provider, code)
-    IO.inspect(get_user!(provider, client))
-    %{email: email} = get_user!(provider, client)
+    user = get_user!(provider, client)
 
     conn
-    |> put_session(:oauth_email, email)
+    |> put_session(:oauth_email, user.email)
+    |> put_session(:user_data, user)
     |> configure_session(renew: true)
     |> redirect(to: page_path(conn, :index))
   end
