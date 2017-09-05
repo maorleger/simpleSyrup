@@ -21,11 +21,11 @@ defmodule SimpleSyrupWeb.Plugs.AuthTest do
       conn =
         conn
         |> init_test_session(
-          oauth_email: new_user_email,
-          user_data: %{
+          oauth_data: %{
             avatar_url: "https://google.com",
             first_name: "foo",
-            last_name: "bar"
+            last_name: "bar",
+            email: new_user_email
           }
         )
         |> SimpleSyrupWeb.Plugs.Auth.call(%{})
@@ -44,8 +44,8 @@ defmodule SimpleSyrupWeb.Plugs.AuthTest do
       conn =
         conn
         |> init_test_session(
-          oauth_email: test_user.email,
-          user_data: %{
+          oauth_data: %{
+            email: test_user.email,
             first_name: test_user.first_name,
             last_name: test_user.last_name,
             avatar_url: test_user.avatar_url

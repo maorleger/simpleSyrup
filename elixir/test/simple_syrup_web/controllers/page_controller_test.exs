@@ -16,7 +16,7 @@ defmodule SimpleSyrupWeb.PageControllerTest do
     test "shows a link to logout with logged in user", %{conn: conn} do
       conn =
         conn
-        |> init_test_session(oauth_email: "test@example.com")
+        |> init_test_session(oauth_data: %{email: "test@example.com"})
         |> get("/")
 
       assert html_response(conn, 200) =~ "Sign out"

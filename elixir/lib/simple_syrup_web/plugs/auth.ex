@@ -10,9 +10,11 @@ defmodule SimpleSyrupWeb.Plugs.Auth do
     opts
   end
 
+  def call(%Plug.Conn{private: %{plug_session: %{current_user: _}}} = conn, _params) do
+    conn
+  end
+
   def call(conn, _opts) do
-    # TODO: dont run this query all the time. Instead put the current user in the session 
-    # and then bypass this if the current user is already in the session
     conn
     |> assign(:current_user, get_or_create_user(conn))
   end
@@ -22,20 +24,17 @@ defmodule SimpleSyrupWeb.Plugs.Auth do
   end
 
   defp get_or_create_user(conn) do
-    email = get_session(conn, :oauth_email)
-    user_data = get_session(conn, :user_data) || %{first_name: nil, last_name: nil, avatar_url: nil}
-    if email do
-      user_changeset = case Repo.get_by(User, email: email) do
-        nil -> %User{email: email}
-          # email: email,
-          # first_name: user_data.first_name,
-          # last_name: user_data.last_name,
-          # avatar_url: user_data.avatar_url
-        # }
+    oauth_data = get_session(conn, :oauth_data)
+    if oauth_data do
+      user_changeset = case Repo.get_by(User, email: oauth_data.email) do
+        nil -> %User{email: oauth_data.email}
         user -> user
       end
 
-      user_changeset = User.changeset(user_changeset, %{first_name: user_data.first_name, last_name: user_data.last_name, avatar_url: user_data.avatar_url})
+      user_changeset = User.changeset(
+        user_changeset,
+        build_changeset(oauth_data)
+      )
 
       {:ok, user} =
         user_changeset
@@ -43,5 +42,11 @@ defmodule SimpleSyrupWeb.Plugs.Auth do
 
       user
     end
+  end
+
+  defp build_changeset(oauth_data) do
+    oauth_data
+    |> Enum.filter(fn({_, v}) -> v != nil end)
+    |> Enum.into(%{})
   end
 end

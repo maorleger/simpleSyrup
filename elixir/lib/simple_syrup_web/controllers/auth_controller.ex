@@ -9,8 +9,7 @@ defmodule SimpleSyrupWeb.AuthController do
 
   def destroy(conn, _params) do
     conn
-    |> delete_session(:oauth_email)
-    |> delete_session(:user_data)
+    |> delete_session(:oauth_data)
     |> delete_session(:access_token)
     |> redirect(to: page_path(conn, :index))
   end
@@ -28,8 +27,7 @@ defmodule SimpleSyrupWeb.AuthController do
     user = get_user!(provider, client)
 
     conn
-    |> put_session(:oauth_email, user.email)
-    |> put_session(:user_data, user)
+    |> put_session(:oauth_data, user)
     |> configure_session(renew: true)
     |> redirect(to: page_path(conn, :index))
   end
