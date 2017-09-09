@@ -28,6 +28,12 @@ defmodule SimpleSyrupWeb.Router do
     get "/:provider/callback", AuthController, :callback
   end
 
+  scope "/app", SimpleSyrupWeb do
+    pipe_through :browser
+
+    get "/", AppController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SimpleSyrupWeb do
   #   pipe_through :api
