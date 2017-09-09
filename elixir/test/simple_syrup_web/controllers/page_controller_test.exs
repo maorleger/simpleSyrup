@@ -22,4 +22,9 @@ defmodule SimpleSyrupWeb.PageControllerTest do
       assert html_response(conn, 200) =~ "Sign out"
     end
   end
+
+  test "GET /signup", %{conn: conn} do
+    conn = get conn, "/signup"
+    assert html_response(conn, 200) =~ "Sign up with Google"
+  end
 end

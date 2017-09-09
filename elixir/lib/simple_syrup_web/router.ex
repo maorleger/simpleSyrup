@@ -18,6 +18,7 @@ defmodule SimpleSyrupWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/signup", PageController, :signup
   end
 
   scope "/auth", SimpleSyrupWeb do

@@ -5,9 +5,9 @@ defmodule SimpleSyrupWeb.AppControllerTest do
   describe "when the user is not logged in" do
     test "GET /app should redirect to main page", %{conn: conn} do
       conn = get conn, app_path(conn, :index)
-      assert redirected_to(conn) == page_path(conn, :index)
+      assert redirected_to(conn) == page_path(conn, :signup)
       assert conn.halted
-      assert get_flash(conn, :error) == "Please login to continue"
+      assert get_flash(conn, :error) == "You'll need to sign in in order to see this event. But don't worry! You can easily sign in or join with Google"
     end
   end
 

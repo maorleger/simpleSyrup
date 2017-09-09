@@ -12,8 +12,8 @@ defmodule SimpleSyrupWeb.AppController do
     case conn.assigns.current_user do
       nil ->
         conn
-        |> put_flash(:error, "Please login to continue")
-        |> redirect(to: page_path(conn, :index))
+        |> put_flash(:error, "You'll need to sign in in order to see this event. But don't worry! You can easily sign in or join with Google")
+        |> redirect(to: page_path(conn, :signup))
         |> halt()
       _ ->
         conn
