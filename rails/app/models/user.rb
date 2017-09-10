@@ -11,14 +11,14 @@ class User < ApplicationRecord
   def self.from_omniauth(omniauth_data)
     data = omniauth_data.info
     user = User.find_by_email(data['email'])
-    # todo: getting password cant be blank here. I need to somehow suppress it
 
     puts data.inspect
     unless user
       user = User.create!(
-        first_name: data['given_name'],
-        last_name: data['family_name'],
         email: data['email'],
+        first_name: data['first_name'],
+        last_name: data['last_name'],
+        password: Devise.friendly_token[0,20],
       )
     end
     user
