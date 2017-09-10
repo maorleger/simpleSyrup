@@ -47,5 +47,4 @@ defmodule SimpleSyrupWeb.AuthController do
   defp get_user!(provider, _) do
     raise "No matching provider for #{provider} in get_user!"
   end
-  # need to implement callback next!!!!!!!!!!
 end
