@@ -1,10 +1,12 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "expenses/edit", type: :view do
   before(:each) do
     @expense = assign(:expense, Expense.create!(
-      :amount => 1,
-      :user => nil
+                                  amount: 1,
+                                  user: nil
     ))
   end
 
@@ -12,7 +14,6 @@ RSpec.describe "expenses/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", expense_path(@expense), "post" do
-
       assert_select "input[name=?]", "expense[amount]"
 
       assert_select "input[name=?]", "expense[user_id]"

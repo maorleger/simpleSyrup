@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -8,19 +10,24 @@ class User < ApplicationRecord
   has_many :participants
   has_many :events, through: :participants
 
-  def self.from_omniauth(omniauth_data)
-    data = omniauth_data.info
-    user = User.find_by_email(data['email'])
+  class << self
+    def from_omniauth(omniauth_data)
+      data = omniauth_data.info
+      user = User.find_by(email: data["email"])
 
-    puts data.inspect
-    unless user
-      user = User.create!(
-        email: data['email'],
-        first_name: data['first_name'],
-        last_name: data['last_name'],
-        password: Devise.friendly_token[0,20],
+      create_user(data) unless user
+      user
+    end
+
+    private
+
+    def create_user(data)
+      User.create!(
+        email: data["email"],
+        first_name: data["first_name"],
+        last_name: data["last_name"],
+        password: Devise.friendly_token[0, 20]
       )
     end
-    user
   end
 end

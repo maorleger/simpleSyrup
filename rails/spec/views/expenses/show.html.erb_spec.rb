@@ -1,10 +1,12 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "expenses/show", type: :view do
   before(:each) do
     @expense = assign(:expense, Expense.create!(
-      :amount => 2,
-      :user => nil
+                                  amount: 2,
+                                  user: nil
     ))
   end
 

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
-  validates :num_days, numericality: { greater_than: 0}
+  validates :num_days, numericality: { greater_than: 0 }
+  validates :name, presence: true
   validate :start_date_cannot_be_in_the_past
-  validates_presence_of :name
 
   has_many :participants
   has_many :users, through: :participants
@@ -10,9 +12,8 @@ class Event < ApplicationRecord
   has_many :tasks
 
   def start_date_cannot_be_in_the_past
-    if start_date.present? && start_date < Date.today
-      errors.add(:start_date, "can't be in the past")
-    end
+    return unless start_date.blank? || start_date < Time.zone.today
+    errors.add(:start_date, "can't be in the past")
   end
 
   def end_date

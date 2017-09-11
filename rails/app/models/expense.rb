@@ -1,13 +1,6 @@
+# frozen_string_literal: true
+
 class Expense < ApplicationRecord
   belongs_to :participant
-
-  def user
-    participant.user
-  end
-
-  def event
-    participant.event
-  end
-
-
+  delegate :user, :event, to: :participant
 end

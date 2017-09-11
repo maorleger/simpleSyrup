@@ -1,8 +1,24 @@
-json.extract! event, :id, :name, :description, :start_date, :num_days, :end_date, :created_at, :updated_at, :lat, :lng, :participants
+# frozen_string_literal: true
+
+json.extract!(
+  event,
+  :id,
+  :name,
+  :description,
+  :start_date,
+  :num_days,
+  :end_date,
+  :created_at,
+  :updated_at,
+  :lat,
+  :lng,
+  :participants
+)
+
 json.participants event.participants do |participant|
   json.id participant.id
   json.userId participant.user.try(:id)
-  json.email participant.user.try(:email) || 'irina@example.com'
+  json.email participant.user.try(:email) || "irina@example.com"
   json.firstName participant.user.try(:first_name)
   json.lastName participant.user.try(:last_name)
   json.status participant.status
