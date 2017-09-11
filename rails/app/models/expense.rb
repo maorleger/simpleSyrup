@@ -2,5 +2,6 @@
 
 class Expense < ApplicationRecord
   belongs_to :participant
-  delegate :user, :event, to: :participant
+  delegate :user, to: :participant
+  delegate :event, to: :participant
 end

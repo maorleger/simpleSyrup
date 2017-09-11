@@ -8,11 +8,13 @@ RSpec.describe "events/index", type: :view do
              Event.create!(
                name: "Name",
                description: "Description",
+               start_date: Time.zone.now + 2.days,
                num_days: 2
              ),
              Event.create!(
                name: "Name",
                description: "Description",
+               start_date: Time.zone.now + 2.days,
                num_days: 2
              )
            ])

@@ -7,6 +7,7 @@ RSpec.describe "events/show", type: :view do
     @event = assign(:event, Event.create!(
                               name: "Name",
                               description: "Description",
+                              start_date: Time.zone.now + 2.days,
                               num_days: 2
     ))
   end
