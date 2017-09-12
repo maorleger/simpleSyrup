@@ -3,11 +3,13 @@ defmodule SimpleSyrupWeb.AppController do
 
   plug :authenticate
 
+  @spec index(Plug.Conn.t, %{}) :: Plug.Conn.t
   def index(conn, _params) do
     conn
     |> render("index.html")
   end
 
+  @spec authenticate(Plug.Conn.t, any) :: Plug.Conn.t
   def authenticate(conn, _opts) do
     case conn.assigns.current_user do
       nil ->

@@ -3,10 +3,12 @@ defmodule SimpleSyrupWeb.AuthController do
 
   @google_api Application.get_env(:simple_syrup, :google_api)
 
+  @spec index(Plug.Conn.t, %{}) :: Plug.Conn.t
   def index(conn, %{"provider" => provider}) do
     redirect conn, external: authorize_url!(provider)
   end
 
+  @spec destroy(Plug.Conn.t, %{}) :: Plug.Conn.t
   def destroy(conn, _params) do
     conn
     |> delete_session(:oauth_data)
@@ -14,6 +16,7 @@ defmodule SimpleSyrupWeb.AuthController do
     |> redirect(to: page_path(conn, :index))
   end
 
+  @spec authorize_url!(String.t) :: String.t
   defp authorize_url!("google") do
     @google_api.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   end
