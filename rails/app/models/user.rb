@@ -13,10 +13,7 @@ class User < ApplicationRecord
   class << self
     def from_omniauth(omniauth_data)
       data = omniauth_data.info
-      user = User.find_by(email: data["email"])
-
-      create_user(data) unless user
-      user
+      User.find_by(email: data["email"]) || create_user(data)
     end
 
     private
