@@ -7,8 +7,8 @@ defmodule SimpleSyrup.OAuth.Google do
   alias OAuth2.Client
 
   @callback client :: %Client{}
-  @callback authorize_url! :: String
-  @callback get_token!(code :: String) :: String
+  @callback authorize_url! :: Binary.t
+  @callback get_token!(code :: String) :: Binary.t
   # credo:disable-for-next-line
-  @callback get_user!(client :: Client) :: %{body: %{avatar_url: String, email: String, first_name: String, last_name: String}}
+  @callback get_user!(client :: Client.t) :: %{avatar_url: Binary.t, email: Binary.t, first_name: Binary.t, last_name: Binary.t}
 end
