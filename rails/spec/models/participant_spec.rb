@@ -3,5 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Participant, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "status" do
+    it "Only accepts valid enumerations" do
+      expect {
+        create(:participant, status: :not_applicable)
+      }.to raise_error(ArgumentError)
+    end
+  end
 end
