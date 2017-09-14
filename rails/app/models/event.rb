@@ -12,7 +12,7 @@ class Event < ApplicationRecord
   has_many :tasks
 
   def start_date_cannot_be_in_the_past
-    return unless start_date.blank? || start_date < Time.zone.today
+    return unless start_date.present? && start_date < Time.zone.today
     errors.add(:start_date, "can't be in the past")
   end
 
