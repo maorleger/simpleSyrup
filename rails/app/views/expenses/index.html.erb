@@ -16,7 +16,7 @@
     <% @expenses.each do |expense| %>
       <tr>
         <td><%= expense.amount %></td>
-        <td><%= expense.user.email %></td>
+        <td><%= expense.user.try(:email) %></td>
         <td><%= expense.date %></td>
         <td><%= link_to 'Show', expense %></td>
         <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
