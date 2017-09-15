@@ -3,5 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Task, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:event) { create(:event) }
+
+  it "user is optional" do
+    expect {
+      Task.create!(event: event, user: nil)
+    }.not_to raise_error
+  end
 end

@@ -10,6 +10,7 @@ class Event < ApplicationRecord
   has_many :expenses, through: :participants
 
   has_many :tasks
+  attribute :num_days, default: 1
 
   def start_date_cannot_be_in_the_past
     return unless start_date.present? && start_date < Time.zone.today
@@ -17,6 +18,6 @@ class Event < ApplicationRecord
   end
 
   def end_date
-    start_date + (num_days - 1).days
+    start_date + (num_days - 1).days if start_date.present?
   end
 end

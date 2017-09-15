@@ -8,6 +8,10 @@ RSpec.describe Participant, type: :model do
       expect {
         create(:participant, status: :not_applicable)
       }.to raise_error(ArgumentError)
+
+      expect {
+        create(:participant, status: :accepted)
+      }.not_to raise_error
     end
   end
 end
