@@ -15,7 +15,7 @@ json.extract!(
   :participants
 )
 
-json.participants event.participants do |participant|
+json.participants event.participants.possible_participants do |participant|
   json.id participant.id
   json.userId participant.user.try(:id)
   json.email participant.user.try(:email) || "irina@example.com"
