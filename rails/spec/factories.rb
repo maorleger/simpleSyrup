@@ -17,5 +17,6 @@ FactoryGirl.define do
 
   factory :expense do
     participant
+    amount { Faker::Number.decimal(2) }
   end
 end
