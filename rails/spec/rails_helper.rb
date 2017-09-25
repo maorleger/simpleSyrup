@@ -28,6 +28,7 @@ require "rspec/rails"
 # If you are not using ActiveRecord, you can remove this line.
 require "support/factory_girl"
 require "faker"
+require "support/devise"
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|

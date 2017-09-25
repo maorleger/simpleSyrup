@@ -81,7 +81,7 @@ RSpec.describe Event, type: :model do
 
     it "correctly calculates for single-day events" do
       event.update(start_date: Time.zone.today, num_days: 1)
-      expect(event.end_date).to eq(Time.zone.today)
+      expect(event.end_date).to eq(Date.today)
     end
   end
 end
