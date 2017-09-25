@@ -9,5 +9,5 @@ class Participant < ApplicationRecord
     left_outer_joins(:user)
       .where
       .not(status: :declined)
-      .order("status, users.first_name, users.last_name, users.email, id") }
+      .order("status DESC, users.first_name, users.last_name, users.email, id") }
 end

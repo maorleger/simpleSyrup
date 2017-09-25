@@ -12,20 +12,20 @@ RSpec.describe Event, type: :model do
       end
 
       it "start date is in the future" do
-        event = build(:event, start_date: Date.today + 3.days)
+        event = build(:event, start_date: Time.zone.today + 3.days)
         event.start_date_cannot_be_in_the_past
         expect(event.errors.messages.size).to eq(0)
       end
 
       it "start date is today" do
-        event = build(:event, start_date: Date.today)
+        event = build(:event, start_date: Time.zone.today)
         event.start_date_cannot_be_in_the_past
         expect(event.errors.messages.size).to eq(0)
       end
     end
 
     it "sets validation error if start date is in the past" do
-      event = build(:event, start_date: Date.today - 3.days)
+      event = build(:event, start_date: Time.zone.today - 3.days)
       event.start_date_cannot_be_in_the_past
       expect(event.errors.messages[:start_date]).to eq(["can't be in the past"])
     end
@@ -75,13 +75,13 @@ RSpec.describe Event, type: :model do
     end
 
     it "correctly calculates for multi-day trips" do
-      event.update(start_date: Date.today, num_days: 3)
-      expect(event.end_date).to eq(Date.today + 2.days)
+      event.update(start_date: Time.zone.today, num_days: 3)
+      expect(event.end_date).to eq(Time.zone.today + 2.days)
     end
 
     it "correctly calculates for single-day events" do
-      event.update(start_date: Date.today, num_days: 1)
-      expect(event.end_date).to eq(Date.today)
+      event.update(start_date: Time.zone.today, num_days: 1)
+      expect(event.end_date).to eq(Time.zone.today)
     end
   end
 end

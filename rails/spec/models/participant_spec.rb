@@ -28,7 +28,7 @@ RSpec.describe Participant, type: :model do
     end
 
     it "sorts the participants by status" do
-      expect(event.participants.possible_participants).to eq([invited, tentative, accepted])
+      expect(event.participants.possible_participants).to eq([accepted, tentative, invited])
     end
   end
 end
