@@ -15,6 +15,8 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require "omniauth"
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -45,6 +47,24 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  # Mock out the google OmniAuth hash for testing
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(
+    provider: "google",
+    uid: "12345",
+    info: {
+      first_name: "Test",
+      last_name: "User",
+      email: "test_user@example.com",
+      image: "http://avatar.example.com",
+    }
+  )
+
+  # randomize RSpec
+  config.order = :random
+  Kernel.srand config.seed
+
 
   # The settings below are suggested to provide a good initial experience
   # with RSpec, but feel free to customize to your heart's content.

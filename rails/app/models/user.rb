@@ -11,20 +11,16 @@ class User < ApplicationRecord
   has_many :events, through: :participants
 
   class << self
-    def from_omniauth(omniauth_data)
-      data = omniauth_data.info
-      User.find_by(email: data["email"]) || create_user(data)
-    end
-
-    private
-
-    def create_user(data)
-      User.create!(
-        email: data["email"],
-        first_name: data["first_name"],
-        last_name: data["last_name"],
-        password: Devise.friendly_token[0, 20]
-      )
+    def find_or_create_from_auth_hash(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.first_name = auth.info.first_name
+        user.last_name = auth.info.last_name
+        user.email = auth.info.email
+        user.picture = auth.info.image
+        user.password = Devise.friendly_token[0, 20]
+      end
     end
   end
 end
