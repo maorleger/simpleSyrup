@@ -13,12 +13,7 @@ class User < ApplicationRecord
   class << self
     def find_or_create_from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-        user.provider = auth.provider
-        user.uid = auth.uid
-        user.first_name = auth.first_name
-        user.last_name = auth.last_name
-        user.email = auth.email
-        user.picture = auth.picture
+        user.attributes = auth.to_h
         user.password = Devise.friendly_token[0, 20]
       end
     end

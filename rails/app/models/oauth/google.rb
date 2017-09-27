@@ -29,5 +29,16 @@ module Oauth
     def picture
       @auth_hash.try(:info).try(:image)
     end
+
+    def to_h
+      {
+        email: email,
+        first_name: first_name,
+        last_name: last_name,
+        picture: picture,
+        provider: provider,
+        uid: uid,
+      }
+    end
   end
 end
