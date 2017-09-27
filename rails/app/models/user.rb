@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :events, through: :participants
 
   class << self
-    def find_or_create_from_auth_hash(auth)
+    def find_or_create_from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
         user.provider = auth.provider
         user.uid = auth.uid
