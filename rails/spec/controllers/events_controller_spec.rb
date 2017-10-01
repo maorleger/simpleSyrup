@@ -18,9 +18,22 @@ RSpec.describe EventsController, type: :controller do
 
   let(:valid_session) { {} }
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, authentication_token: SecureRandom.hex(8)) }
 
-  describe "withou a signed in user" do
+  describe "API Authentication" do
+    it "with a valid token successfully authenticates" do
+      get :index, params: { user_email: user.email, user_token: user.authentication_token }, format: :json
+      expect(response).to be_success
+    end
+
+    it "with an invalid token does not authenticate" do
+      get :index, params: { user_email: user.email, user_token: SecureRandom.hex(8) }, format: :json
+      expect(response.status).to eq(401)
+      expect(JSON.load(response.body)).to eq("error" => "You need to sign in or sign up before continuing.")
+    end
+  end
+
+  describe "without a signed in user" do
     it "GET #index requires sign in" do
       get :index, params: {}, session: valid_session
       expect(response).to redirect_to(new_user_session_path)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  acts_as_token_authentication_handler_for User
   before_action :set_event, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
