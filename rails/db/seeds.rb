@@ -9,63 +9,64 @@
 end
 
 event = Event.create!(
-  name: "Park Day!",
   description: "Kicking it in the park",
-  start_date: Time.zone.today + 2.months,
-  num_days: 1,
   lat: 39.698465,
-  lng: -104.970771
+  lng: -104.970771,
+  name: "Park Day!",
+  num_days: 1,
+  start_date: Time.zone.today + 2.months,
 )
 
 ml = User.create!(
   email: "ml@example.com",
-  password: "password",
   first_name: "Major",
-  last_name: "Lazer"
+  last_name: "Lazer",
+  password: "password",
 )
 
 er = User.create!(
+  authentication_token: "EricsToken",
   email: "er@example.com",
-  password: "password",
   first_name: "RealEstate",
-  last_name: "Guru"
+  last_name: "Guru",
+  password: "password",
 )
 
 p1 = Participant.create!(
+  event: event,
+  status: "accepted",
   user: ml,
-  event: event,
-  status: "accepted"
 )
 
 Participant.create!(
+  event: event,
+  status: "declined",
   user: er,
-  event: event,
-  status: "declined"
 )
 
 Participant.create!(
-  user: nil,
   event: event,
-  status: "invited"
+  status: "invited",
+  user: nil,
 )
 
 Expense.create!(
   amount: 4.56,
-  participant: p1,
+  date: Time.zone.today,
   description: "delicious chicken sausage!",
-  date: Time.zone.today
+  participant: p1,
 )
 
 Expense.create!(
   amount: 23.95,
-  participant: p1,
+  date: Time.zone.today - 5.days,
   description: "Gas",
-  date: Time.zone.today - 5.days
+  participant: p1,
 )
 
 Event.create!(
-  name: "My far future event",
   description: "I havent invited anyone nor did I set anything up",
+  name: "My far future event",
+  num_days: 5,
   start_date: Time.zone.today + 2.years,
-  num_days: 5
 )
