@@ -42,6 +42,9 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "simple_token_authentication"
 
+# graphQL
+gem "graphql"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,3 +72,5 @@ end
 gem "rspec-rails", group: %i[development test]
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 ruby "2.3.1"
+
+gem "graphiql-rails", group: :development
