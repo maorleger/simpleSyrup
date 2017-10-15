@@ -21,3 +21,6 @@ Style/Documentation:
 
 Metrics/MethodLength:
   Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.4
