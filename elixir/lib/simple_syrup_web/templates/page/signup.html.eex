@@ -1,3 +1,0 @@
-<%= link to: auth_path(@conn, :index, "google") do %>
-  Sign up with Google
-<% end %>
