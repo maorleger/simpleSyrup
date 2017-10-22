@@ -11,6 +11,10 @@ FactoryGirl.define do
   factory :event do
     name { Faker::Company.bs }
 
+    transient do
+      participants_count 0
+    end
+
     factory :event_with_participants do
       transient do
         participants_count 2
