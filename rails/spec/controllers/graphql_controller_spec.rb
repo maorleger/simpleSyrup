@@ -27,7 +27,7 @@ RSpec.describe GraphqlController, type: :controller do
   end
 
   describe "Event requests" do
-    it "works" do
+    it "Grabs the correct data" do
       query = <<~EOF
       {
         event(id: #{event.id}) {
