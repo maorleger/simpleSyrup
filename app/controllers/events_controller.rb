@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
+  before_action :set_default_response_format
 
   def index
     @events = Event.all
@@ -43,5 +44,9 @@ class EventsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def event_params
       params.require(:event).permit(:name, :description, :start_date, :num_days, :lat, :lng)
+    end
+
+    def set_default_response_format
+      request.format = :json
     end
 end

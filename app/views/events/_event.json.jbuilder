@@ -15,7 +15,6 @@ json.extract!(
   :participants
 )
 
-binding.pry
 json.participants event.participants.possible_participants do |participant|
   json.id participant.id
   json.userId participant.user_id
