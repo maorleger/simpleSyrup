@@ -3,6 +3,9 @@
 require "rails_helper"
 
 RSpec.describe Event, type: :model do
+
+  specify { is_expected.to have_many(:participants) }
+
   describe "validations" do
     specify do
       is_expected
@@ -10,10 +13,7 @@ RSpec.describe Event, type: :model do
         .is_greater_than(0)
     end
 
-    specify do
-      is_expected
-        .to validate_presence_of(:name)
-    end
+    specify { is_expected.to validate_presence_of(:name) }
 
     describe "#start_date_cannot_be_in_the_past" do
       describe "does not set error when" do

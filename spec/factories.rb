@@ -10,4 +10,9 @@ FactoryBot.define do
   factory :event do
     name { Faker::Company.bs }
   end
+
+  factory :participant do
+    association :user
+    association :event
+  end
 end
