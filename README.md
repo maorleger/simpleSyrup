@@ -1,5 +1,24 @@
-# Deploy prototype to heroku
+# README
 
-git push heroku prototype:master
-`git subtree push --prefix rails heroku master`
-`git push heroku `git subtree split --prefix rails master`:master --force`
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
