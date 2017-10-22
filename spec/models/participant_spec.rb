@@ -34,4 +34,12 @@ RSpec.describe Participant, type: :model do
       expect(event.participants.possible_participants).to eq([accepted, tentative, invited])
     end
   end
+
+  describe "defaults" do
+    let!(:default_status) { build_stubbed(:participant) }
+
+    it 'status is defaulted to "invited"' do
+      expect(default_status.status).to eq("invited")
+    end
+  end
 end
