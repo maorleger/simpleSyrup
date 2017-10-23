@@ -7,4 +7,6 @@ Types::ParticipantType = GraphQL::ObjectType.define do
 
   field :user, Types::UserType
   field :event, Types::EventType
+  field :created_at, types.String
+  field :updated_at, types.String
 end
