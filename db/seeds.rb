@@ -19,12 +19,14 @@ ml = User.create!(
   email: "ml@example.com",
   first_name: "Major",
   last_name: "Lazer",
+  photo_url: "http://lorempixel.com/400/200/cats/"
 )
 
 er = User.create!(
   email: "er@example.com",
   first_name: "RealEstate",
   last_name: "Guru",
+  photo_url: "http://lorempixel.com/400/200/cats/"
 )
 
 Participant.create!(
