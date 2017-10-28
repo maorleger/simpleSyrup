@@ -22,10 +22,10 @@ json.participants event.participants.possible_participants do |participant|
   json.status participant.status
 
   json.user do
-    json.email participant.user.try(:email) || "irina@example.com"
-    json.firstName participant.user.try(:first_name)
-    json.lastName participant.user.try(:last_name)
-    json.photoUrl participant.user.try(:photo_url)
+    json.email participant.user&.email || "irina@example.com"
+    json.firstName participant.user&.first_name
+    json.lastName participant.user&.last_name
+    json.photoUrl participant.user&.photo_url
   end
 end
 
