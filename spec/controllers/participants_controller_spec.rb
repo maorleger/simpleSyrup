@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe ParticipantsController, type: :controller do
   let(:event) { create(:event) }
   let(:user) { create(:user) }
+
   describe "POST #create" do
     let(:post_params) do
       {

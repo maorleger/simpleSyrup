@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe EventsController, type: :controller do
+  render_views
 
   let(:valid_attributes) {
     {
@@ -18,20 +19,23 @@ RSpec.describe EventsController, type: :controller do
   }
 
   let(:valid_session) { {} }
+  let!(:event) { create(:event) }
+
+  let(:json) { JSON.parse(response.body) }
 
   describe "GET #index" do
     it "returns a success response" do
-      Event.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
+      expect(json.map { |j| j["id"] }).to eq([event.id])
     end
   end
 
   describe "GET #show" do
     it "returns a success response" do
-      event = Event.create! valid_attributes
       get :show, params: { id: event.to_param }, session: valid_session
       expect(response).to be_success
+      expect(json["id"]).to eq(event.id)
     end
   end
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
-  post "/graphql", to: "graphql#execute"
+  resources :users, only: [:index, :show]
   resources :events do
     resources :participants, only: [:create], via: [:post]
   end
+  post "/graphql", to: "graphql#execute"
 end
