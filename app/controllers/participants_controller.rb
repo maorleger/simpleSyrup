@@ -2,10 +2,14 @@
 
 class ParticipantsController < ApplicationController
   def create
-    @participant = Participant.new(participant_params).tap do |p|
-      p.save
+    status = :conflict
+
+    @participant = Participant.find_or_create_by!(participant_params.except(:status)) do |participant|
+      participant.status = participant_params[:status]
+      status = :created
     end
-    render json: @participant, status: :created
+
+    render json: @participant, status: status
   end
 
   private

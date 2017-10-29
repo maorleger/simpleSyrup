@@ -18,6 +18,10 @@ RSpec.describe Participant, type: :model do
     end
   end
 
+  subject do
+    create(:participant)
+  end
+
   describe "#possible_participants" do
     let!(:event) { create(:event) }
 
@@ -35,11 +39,38 @@ RSpec.describe Participant, type: :model do
     end
   end
 
+  describe "#invite_to_event" do
+    it "sends an email to the user" do
+      allow(subject).to receive(:whitelisted?).and_return(true)
+      expect do
+        subject.invite_to_event
+      end.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+    describe "when the user is not whitelisted" do
+      it "does not send an email" do
+        allow(subject).to receive(:whitelisted?).and_return(false)
+        expect do
+          subject.invite_to_event
+        end.not_to change { ActionMailer::Base.deliveries.count }
+      end
+    end
+  end
+
   describe "defaults" do
     let!(:default_status) { build_stubbed(:participant) }
 
     it 'status is defaulted to "invited"' do
       expect(default_status.status).to eq("invited")
+    end
+  end
+
+  describe ".create" do
+    it "sends an invitation email" do
+      allow_any_instance_of(Participant).to receive(:whitelisted?).and_return(true)
+      expect do
+        create(:participant)
+      end.to change { ActionMailer::Base.deliveries.count }
     end
   end
 end

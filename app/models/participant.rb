@@ -11,4 +11,15 @@ class Participant < ApplicationRecord
       .where.not(status: :declined)
       .order("status DESC, users.first_name, users.last_name, users.email, id")
   }
+  after_create :invite_to_event
+
+  def invite_to_event
+    EventInvitationMailer.invitation_email(user).deliver_now if whitelisted?
+  end
+
+  private
+
+    def whitelisted?
+      (ENV["WHITELISTED_EMAILS"] || "").split("|").include?(user&.email)
+    end
 end

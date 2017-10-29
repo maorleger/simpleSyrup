@@ -13,8 +13,8 @@ RSpec.describe ParticipantsController, type: :controller do
         user_id: user.id,
         status: "invited"
       }
-
     end
+
     describe "when the participant is valid" do
       it "returns http success" do
         post :create, params: post_params
@@ -31,6 +31,11 @@ RSpec.describe ParticipantsController, type: :controller do
         expect(participant.user).to eq(user)
         expect(response.body).to eq(participant.to_json)
       end
+
+      it "sends an email invitation" do
+        expect_any_instance_of(Participant).to receive(:invite_to_event)
+        post :create, params: post_params
+      end
     end
 
     describe "when the participant is invalid" do
@@ -44,6 +49,20 @@ RSpec.describe ParticipantsController, type: :controller do
         expect do
           post :create, params: post_params.merge(status: "foobar")
         end.to raise_error(ArgumentError)
+      end
+
+      it "because it already exists" do
+        participant = create(
+          :participant,
+          user_id: post_params[:user_id],
+          event_id: post_params[:event_id]
+        )
+        expect_any_instance_of(Participant).not_to receive(:invite_to_event)
+
+        post :create, params: post_params
+
+        expect(response).to have_http_status(:conflict)
+        expect(response.body).to eq(participant.to_json)
       end
     end
   end
