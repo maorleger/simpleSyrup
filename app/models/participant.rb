@@ -14,7 +14,7 @@ class Participant < ApplicationRecord
   after_create :invite_to_event
 
   def invite_to_event
-    EventInvitationMailer.invitation_email(user).deliver_now if whitelisted?
+    EventInvitationMailer.invitation_email(self).deliver_now if whitelisted?
   end
 
   private

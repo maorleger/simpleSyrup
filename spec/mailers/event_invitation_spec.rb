@@ -5,7 +5,9 @@ require "rails_helper"
 RSpec.describe EventInvitationMailer, type: :mailer do
   describe "#send_invitation_email" do
     let(:user) { create(:user) }
-    let(:mail) { described_class.invitation_email(user).deliver_now }
+    let(:event) { create(:event) }
+    let(:participant) { create(:participant, event: event, user: user) }
+    let(:mail) { described_class.invitation_email(participant).deliver_now }
 
     describe "when the user is valid" do
       it "renders the subject" do
@@ -18,6 +20,10 @@ RSpec.describe EventInvitationMailer, type: :mailer do
 
       it "assigns @user" do
         expect(mail.body.encoded).to match(user.first_name)
+      end
+
+      it "assigns @event" do
+        expect(mail.body.encoded).to match(event.name)
       end
     end
   end
