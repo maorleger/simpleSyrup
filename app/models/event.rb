@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   validates :num_days, numericality: { greater_than: 0 }
   validates :name, presence: true
   validate :start_date_cannot_be_in_the_past
-  has_many :participants
+  has_many :participants, dependent: :destroy
 
   def end_date
     start_date + (num_days - 1).days if start_date.present?

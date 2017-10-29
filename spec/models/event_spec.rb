@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Event, type: :model do
 
-  specify { is_expected.to have_many(:participants) }
+  specify { is_expected.to have_many(:participants).dependent(:destroy) }
 
   describe "validations" do
     specify do
