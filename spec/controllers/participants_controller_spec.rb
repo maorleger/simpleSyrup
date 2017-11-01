@@ -69,10 +69,10 @@ RSpec.describe ParticipantsController, type: :controller do
           expect(response.body).to eq(participant.to_json)
         end
 
-        it "still sends an email if the email param is true" do
+        it "still sends an email if the force email param is true" do
           expect_any_instance_of(Participant).to receive(:invite_to_event)
 
-          post :create, params: post_params.merge(email: true)
+          post :create, params: post_params.merge(force_email: true)
         end
       end
 
