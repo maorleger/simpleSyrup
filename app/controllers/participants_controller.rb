@@ -9,6 +9,8 @@ class ParticipantsController < ApplicationController
       status = :created
     end
 
+    @participant.invite_to_event if params[:email]
+
     render json: @participant, status: status
   end
 

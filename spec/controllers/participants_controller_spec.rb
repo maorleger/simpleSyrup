@@ -51,19 +51,31 @@ RSpec.describe ParticipantsController, type: :controller do
         end.to raise_error(ArgumentError)
       end
 
-      it "because it already exists" do
-        participant = create(
-          :participant,
-          user_id: post_params[:user_id],
-          event_id: post_params[:event_id]
-        )
-        expect_any_instance_of(Participant).not_to receive(:invite_to_event)
+      describe "because it already exists" do
+        let!(:participant) {
+          create(
+            :participant,
+            user_id: post_params[:user_id],
+            event_id: post_params[:event_id]
+          )
+        }
 
-        post :create, params: post_params
+        it "returns http status 409" do
+          expect_any_instance_of(Participant).not_to receive(:invite_to_event)
 
-        expect(response).to have_http_status(:conflict)
-        expect(response.body).to eq(participant.to_json)
+          post :create, params: post_params
+
+          expect(response).to have_http_status(:conflict)
+          expect(response.body).to eq(participant.to_json)
+        end
+
+        it "still sends an email if the email param is true" do
+          expect_any_instance_of(Participant).to receive(:invite_to_event)
+
+          post :create, params: post_params.merge(email: true)
+        end
       end
+
     end
   end
 end
