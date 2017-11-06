@@ -39,6 +39,32 @@ RSpec.describe Participant, type: :model do
     end
   end
 
+  describe "delegators" do
+    USER_DELEGATORS = [:first_name, :last_name, :email, :photo_url]
+
+    USER_DELEGATORS.each do |delegator|
+      it "delegates #{delegator} to user" do
+        expect(subject.public_send(delegator)).to eq(subject.user.public_send(delegator))
+      end
+
+      describe "when user is nil" do
+        before do
+          subject.user = nil
+        end
+
+        it "does not blow up for #{delegator}" do
+          expect do
+            subject.public_send(delegator)
+          end.not_to raise_error
+        end
+
+        it "returns nil" do
+          expect(subject.public_send(delegator)).to be_nil
+        end
+      end
+    end
+  end
+
   describe "#invite_to_event" do
     it "sends an email to the user" do
       allow(subject).to receive(:whitelisted?).and_return(true)

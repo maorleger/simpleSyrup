@@ -3,6 +3,7 @@
 class Participant < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :event
+  delegate :first_name, :last_name, :email, :photo_url, to: :user, allow_nil: true
 
   enum status: { invited: 0, tentative: 1, accepted: 2, declined: 3 }
 
