@@ -7,9 +7,9 @@ Types::EventType = GraphQL::ObjectType.define do
   field :lat, types.Float
   field :lng, types.Float
   field :name, types.String
-  field :num_days, types.Int
-  field :start_date, types.String
-  field :created_at, types.String
-  field :updated_at, types.String
+  field :numDays, types.Int, property: :num_days
+  field :startDate, types.String, property: :start_date
+  field :createdAt, types.String, property: :created_at
+  field :updatedAt, types.String, property: :updated_at
   field :participants, types[!Types::ParticipantType]
 end
