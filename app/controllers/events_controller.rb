@@ -12,7 +12,6 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
-
     if @event.save
       render json: @event, status: :created, location: @event
     else
@@ -22,7 +21,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
+    if @event.update_event(event_params)
       render json: @event
     else
       render json: @event.errors, status: :unprocessable_entity
@@ -40,6 +39,13 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:name, :description, :start_date, :num_days, :lat, :lng)
+      params.require(:event).permit(
+        :name,
+        :description,
+        :start_date,
+        :num_days,
+        :lat,
+        :lng,
+        [ users: [ id: [] ] ])
     end
 end

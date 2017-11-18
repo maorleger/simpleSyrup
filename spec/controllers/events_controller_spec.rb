@@ -68,6 +68,7 @@ RSpec.describe EventsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
+      let(:event) { create(:event) }
       let(:name) { Faker::HarryPotter.book }
       let(:description) { Faker::HarryPotter.quote }
       let(:start_date) { Date.today + 5.months }
@@ -80,7 +81,6 @@ RSpec.describe EventsController, type: :controller do
       end
 
       it "updates the requested event" do
-        event = Event.create! valid_attributes
         put :update, params: { id: event.to_param, event: new_attributes }, session: valid_session
         event.reload
         expect(event.name).to eq(name)
@@ -89,11 +89,37 @@ RSpec.describe EventsController, type: :controller do
       end
 
       it "renders a JSON response with the event" do
-        event = Event.create! valid_attributes
-
         put :update, params: { id: event.to_param, event: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json")
+      end
+
+      describe "with participants" do
+        let(:users) { create_list(:user, 3) }
+
+        it "can add a single participant" do
+          expect do
+            put :update, params: { id: event.to_param, event: { users: { id: [users.first.id] } } }
+          end.to change { Participant.count }.by(1)
+        end
+
+        it "can accept multiple particpants" do
+          expect do
+            put :update, params: { id: event.to_param, event: { users: { id: users.pluck(:id) } } }
+          end.to change { Participant.count }.by(users.count)
+        end
+
+        describe "when a participant already exists" do
+          before do
+            event.participants.create(user: users.first)
+          end
+
+          it "does not create a new participant" do
+            expect do
+              put :update, params: { id: event.to_param, event: { users: { id: users.pluck(:id) } } }
+            end.to change { Participant.count }.by(users.count - 1)
+          end
+        end
       end
     end
 

@@ -3,7 +3,6 @@
 class ParticipantsController < ApplicationController
   def create
     status = :conflict
-
     @participant = Participant.find_or_create_by!(participant_params.except(:status)) do |participant|
       participant.status = participant_params[:status]
       status = :created
