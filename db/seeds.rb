@@ -29,6 +29,13 @@ er = User.create!(
   photo_url: "http://lorempixel.com/400/200/cats/"
 )
 
+rl = User.create!(
+  email: "rl@example.com",
+  first_name: "Regina",
+  last_name: "George",
+  photo_url: "http://lorempixel.com/400/200/cats/"
+)
+
 Participant.create!(
   event: event,
   status: "accepted",
@@ -44,7 +51,7 @@ Participant.create!(
 Participant.create!(
   event: event,
   status: "invited",
-  user: nil,
+  user: rl,
 )
 
 Event.create!(
