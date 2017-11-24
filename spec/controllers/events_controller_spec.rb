@@ -96,28 +96,56 @@ RSpec.describe EventsController, type: :controller do
 
       describe "with participants" do
         let(:users) { create_list(:user, 3) }
+        let(:users_param) { users.map { |user| { user_id: user.id, status: "accepted" } } }
 
         it "can add a single participant" do
           expect do
-            put :update, params: { id: event.to_param, event: { users: { id: [users.first.id] } } }
+            put :update, params: {
+              id: event.to_param,
+              event: {
+                participants_attributes: [
+                  { user_id: users.first.id }
+                ]
+              }
+            }
           end.to change { Participant.count }.by(1)
         end
 
         it "can accept multiple particpants" do
           expect do
-            put :update, params: { id: event.to_param, event: { users: { id: users.pluck(:id) } } }
+            put :update, params: { id: event.to_param, event: { participants_attributes: users_param } }
           end.to change { Participant.count }.by(users.count)
         end
 
+        it "correctly updates the status" do
+          put :update, params: { id: event.to_param, event: { participants_attributes: users_param } }
+          expect(event.participants.pluck(:status)).to eq(users.map { "accepted" })
+        end
+
+        it "can handle skipped status" do
+          no_status_params = users_param.map { |user_hash| user_hash.except(:status) }
+          put :update, params: { id: event.to_param, event: { participants_attributes: no_status_params } }
+          expect(event.participants.pluck(:status)).to eq(users.map { "invited" })
+        end
+
         describe "when a participant already exists" do
-          before do
-            event.participants.create(user: users.first)
+          let!(:participant) do
+            create(:participant,
+                   event: event,
+                   user: users.first
+                  )
           end
 
           it "does not create a new participant" do
             expect do
-              put :update, params: { id: event.to_param, event: { users: { id: users.pluck(:id) } } }
-            end.to change { Participant.count }.by(users.count - 1)
+              put :update, params: {
+                id: event.to_param,
+                event: {
+                  participants_attributes: [{ id: participant.id, user_id: users.first.id, status: "declined"  } ]
+                }
+              }
+            end.not_to change { Participant.count }
+            expect(participant.reload.status).to eq("declined")
           end
         end
       end

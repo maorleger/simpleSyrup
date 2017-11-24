@@ -21,7 +21,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    if @event.update_event(event_params)
+    if @event.update(event_params)
       render json: @event
     else
       render json: @event.errors, status: :unprocessable_entity
@@ -46,6 +46,7 @@ class EventsController < ApplicationController
         :num_days,
         :lat,
         :lng,
-        [ users: [ id: [] ] ])
+        participants_attributes: [:id, :user_id, :status]
+      )
     end
 end

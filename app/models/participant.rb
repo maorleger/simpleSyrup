@@ -13,6 +13,7 @@ class Participant < ApplicationRecord
       .order("status DESC, users.first_name, users.last_name, users.email, id")
   }
   after_create :invite_to_event
+  validates_uniqueness_of :user_id, scope: :event_id
 
   def invite_to_event
     EventInvitationMailer.invitation_email(self).deliver_now if whitelisted?
