@@ -147,6 +147,17 @@ RSpec.describe EventsController, type: :controller do
             end.not_to change { Participant.count }
             expect(participant.reload.status).to eq("declined")
           end
+
+          it "allows deleting the participant" do
+            expect do
+              put :update, params: {
+                id: event.to_param,
+                event: {
+                  participants_attributes: [{ id: participant.id, _destroy: true }]
+                }
+              }
+            end.to change { Participant.count }.by(-1)
+          end
         end
       end
     end

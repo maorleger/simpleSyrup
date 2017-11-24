@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe Event, type: :model do
 
   specify { is_expected.to have_many(:participants).dependent(:destroy) }
+  specify { is_expected.to accept_nested_attributes_for(:participants).allow_destroy(true) }
 
   describe "validations" do
     specify do

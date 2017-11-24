@@ -46,7 +46,7 @@ class EventsController < ApplicationController
         :num_days,
         :lat,
         :lng,
-        participants_attributes: [:id, :user_id, :status]
+        participants_attributes: [:id, :user_id, :status, :_destroy]
       )
     end
 end
