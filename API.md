@@ -34,13 +34,13 @@ curl http://localhost:3000/events
 ### POST
 
 ```
-curl -X POST -H "Content-Type: application/json" -d $EVENT_PARAMS'  http://localhost:3000/events
+curl -X POST -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/events
 ```
 
 ### PUT
 
 ```
-curl -X PUT -H "Content-Type: application/json" -d $EVENT_PARAMS'  http://localhost:3000/events/$EVENT_ID
+curl -X PUT -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/events/$EVENT_ID
 ```
 
 ## /graphql - still needs updating
@@ -68,4 +68,43 @@ curl 'https://simplesyrup-rails.herokuapp.com/graphql' -H 'content-type: applica
      , "variables":null
      , "operationName":null
 }'
+```
+
+
+## /users
+
+### Example parameters accepted:
+
+```
+{ "user":
+  { "first_name": "Fred"
+  , "last_name": "George"
+  , "email": "some_email@example.com"
+  }
+}
+```
+
+### GET
+
+```
+curl http://localhost:3000/users
+curl http://localhost:3000/users/1
+```
+
+### POST
+
+```
+curl -X POST -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/users
+```
+
+### PUT
+
+```
+curl -X PUT -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/users/$USER_ID
+```
+
+### DELETE
+
+```
+curl -X DELETE http://localhost:3000/users/$USER_ID
 ```

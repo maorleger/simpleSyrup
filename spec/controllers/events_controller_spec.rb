@@ -141,7 +141,13 @@ RSpec.describe EventsController, type: :controller do
               put :update, params: {
                 id: event.to_param,
                 event: {
-                  participants_attributes: [{ id: participant.id, user_id: users.first.id, status: "declined"  } ]
+                  participants_attributes: [
+                    {
+                      id: participant.id,
+                      user_id: users.first.id,
+                      status: "declined"
+                    }
+                  ]
                 }
               }
             end.not_to change { Participant.count }
