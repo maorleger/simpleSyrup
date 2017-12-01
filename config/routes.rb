@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       post "/graphql", to: "graphql#execute"
     end
   end
+
+  resources :events, only: [:show]
 end
