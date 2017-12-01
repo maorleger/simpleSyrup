@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ParticipantsController, type: :controller do
+RSpec.describe Api::V1::ParticipantsController, type: :controller do
   let(:event) { create(:event) }
   let(:user) { create(:user) }
 

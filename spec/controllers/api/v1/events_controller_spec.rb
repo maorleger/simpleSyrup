@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe EventsController, type: :controller do
+RSpec.describe Api::V1::EventsController, type: :controller do
   render_views
 
   let(:valid_attributes) {
@@ -52,7 +52,7 @@ RSpec.describe EventsController, type: :controller do
         post :create, params: { event: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq("application/json")
-        expect(response.location).to eq(event_url(Event.last))
+        expect(response.location).to eq(api_v1_event_url(Event.last))
       end
     end
 

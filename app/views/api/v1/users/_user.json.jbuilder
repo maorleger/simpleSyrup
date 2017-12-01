@@ -9,4 +9,4 @@ json.extract!(
   :photo_url,
 )
 
-json.url user_url(user, format: :json)
+json.url api_v1_user_url(user, format: :json)

@@ -29,4 +29,4 @@ json.participants event.participants.possible_participants do |participant|
   end
 end
 
-json.url event_url(event, format: :json)
+json.url api_v1_event_url(event, format: :json)

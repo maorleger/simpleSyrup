@@ -2,33 +2,33 @@
 
 require "rails_helper"
 
-RSpec.describe EventsController, type: :routing do
+RSpec.describe Api::V1::EventsController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(get: "/events").to route_to("events#index")
+      expect(get: "/api/v1/events").to route_to("api/v1/events#index")
     end
 
 
     it "routes to #show" do
-      expect(get: "/events/1").to route_to("events#show", id: "1")
+      expect(get: "/api/v1/events/1").to route_to("api/v1/events#show", id: "1")
     end
 
 
     it "routes to #create" do
-      expect(post: "/events").to route_to("events#create")
+      expect(post: "/api/v1/events").to route_to("api/v1/events#create")
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/events/1").to route_to("events#update", id: "1")
+      expect(put: "/api/v1/events/1").to route_to("api/v1/events#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/events/1").to route_to("events#update", id: "1")
+      expect(patch: "/api/v1/events/1").to route_to("api/v1/events#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/events/1").to route_to("events#destroy", id: "1")
+      expect(delete: "/api/v1/events/1").to route_to("api/v1/events#destroy", id: "1")
     end
 
   end

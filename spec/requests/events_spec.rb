@@ -6,7 +6,7 @@ RSpec.describe "Events", type: :request do
   let!(:participant) { create(:participant) }
   describe "GET /events" do
     before do
-      get events_path
+      get api_v1_events_path
     end
 
     def event
@@ -30,7 +30,7 @@ RSpec.describe "Events", type: :request do
 
   describe "GET /events/1" do
     before do
-      get event_path(participant.event.id)
+      get api_v1_event_path(participant.event.id)
     end
 
     def event

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe Api::V1::UsersController, type: :controller do
   render_views
   let!(:users) { create_list(:user, 4) }
   let(:json) { JSON.parse(response.body) }
@@ -48,9 +48,9 @@ RSpec.describe UsersController, type: :controller do
         post :create, params: { user: user_params }
         expect(response).to have_http_status(:created)
         expect(json["email"]).to eq(email)
-        expect(json["first_name"]).to eq(first_name)
-        expect(json["last_name"]).to eq(last_name)
-        expect(json["photo_url"]).to eq(photo_url)
+        expect(json["firstName"]).to eq(first_name)
+        expect(json["lastName"]).to eq(last_name)
+        expect(json["photoUrl"]).to eq(photo_url)
       end
 
       it "creates a user" do
