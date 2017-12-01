@@ -28,25 +28,25 @@
 ### GET
 
 ```
-curl http://localhost:3000/events
+curl http://localhost:3000/api/v1/events
 ```
 
 ### POST
 
 ```
-curl -X POST -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/events
+curl -X POST -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/api/v1/events
 ```
 
 ### PUT
 
 ```
-curl -X PUT -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/events/$EVENT_ID
+curl -X PUT -H "Content-Type: application/json" -d $EVENT_PARAMS  http://localhost:3000/api/v1/events/$EVENT_ID
 ```
 
 ## /graphql - still needs updating
 
 ```
-curl 'https://simplesyrup-rails.herokuapp.com/graphql' -H 'content-type: application/json' -d 
+curl -H 'content-type: application/json' -d 
 '{ "query":
     "{ event(id: 1) {
       id
@@ -67,7 +67,7 @@ curl 'https://simplesyrup-rails.herokuapp.com/graphql' -H 'content-type: applica
      }"
      , "variables":null
      , "operationName":null
-}'
+} https://simplesyrup-rails.herokuapp.com/api/v1/graphql '
 ```
 
 
@@ -87,24 +87,24 @@ curl 'https://simplesyrup-rails.herokuapp.com/graphql' -H 'content-type: applica
 ### GET
 
 ```
-curl http://localhost:3000/users
-curl http://localhost:3000/users/1
+curl http://localhost:3000/api/v1/users
+curl http://localhost:3000/api/v1/users/1
 ```
 
 ### POST
 
 ```
-curl -X POST -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/users
+curl -X POST -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/api/v1/users
 ```
 
 ### PUT
 
 ```
-curl -X PUT -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/users/$USER_ID
+curl -X PUT -H "Content-Type: application/json" -d $USER_PARAMS  http://localhost:3000/api/v1/users/$USER_ID
 ```
 
 ### DELETE
 
 ```
-curl -X DELETE http://localhost:3000/users/$USER_ID
+curl -X DELETE http://localhost:3000/api/v1/users/$USER_ID
 ```
