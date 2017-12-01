@@ -89,9 +89,10 @@ RSpec.describe EventsController, type: :controller do
       end
 
       it "renders a JSON response with the event" do
-        put :update, params: { id: event.to_param, event: valid_attributes }, session: valid_session
+        put :update, params: { id: event.to_param, event: new_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json")
+        expect(json["description"]).to eq(description)
       end
 
       describe "with participants" do
@@ -109,6 +110,11 @@ RSpec.describe EventsController, type: :controller do
               }
             }
           end.to change { Participant.count }.by(1)
+        end
+
+        it "returns the new participant data" do
+          put :update, params: { id: event.to_param, event: { participants_attributes: users_param } }
+          expect(json["participants"].map { |p| p["userId"] }.sort).to eq(users_param.map { |up| up[:user_id] })
         end
 
         it "can accept multiple particpants" do
