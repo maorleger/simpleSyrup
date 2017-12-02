@@ -1,0 +1,44 @@
+  @mixin ss-userChip($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+    .user-chip-wrapper{
+      position: relative;
+      display: flex;
+    }
+
+    .user-chip-wrapper .profile-pic{
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        color: mat-color($primary, default-contrast);
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    .md-chip-wrapper{
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .user-chip-wrapper md-basic-chip span{
+      margin-left: 32px;
+    }
+
+    .user-chip-wrapper md-basic-chip{
+      margin-left: -32px;
+      border-radius: 24px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 5px;
+      padding-right: 10px;
+      left: 0;
+      z-index: 1;
+    }
+
+}

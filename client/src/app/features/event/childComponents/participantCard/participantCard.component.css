@@ -1,0 +1,40 @@
+ssParticipantBigChip{
+	display: inline-block;
+	width: 100%;
+}
+
+.body-overflow{
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+/* An annoyingly overconvulated way to select the last row of participants for both sections. Has to be done this way because
+*  only every other row is rendered out. Two selectors per section that check conditions for when there is both even and add
+*  number of participants
+*/
+.body-summary > div:last-child:nth-child(odd) ssParticipantBigChip:last-child,
+.body-summary > div:nth-last-child(2):nth-child(odd) ssParticipantBigChip,
+.body-overflow > div:last-child:nth-child(odd) ssParticipantBigChip,
+.body-overflow > div:nth-last-child(2):nth-child(odd) ssParticipantBigChip{
+	margin-bottom: 0;
+}
+
+@media screen and (max-width: 500px) {
+
+    .participant-col{
+        width: 100%;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    /* Overrides the complicated style above so that the non-last participant does have margin, since each participant is on 
+    *  its own row at this width.
+    */
+	.body-summary > div:last-child:nth-child(odd) div.participant-col:not(:last-child) ssParticipantBigChip,
+	.body-summary > div:nth-last-child(2):nth-child(odd) div.participant-col:not(:last-child)  ssParticipantBigChip,
+	.body-overflow > div:last-child:nth-child(odd) div.participant-col:not(:last-child)  ssParticipantBigChip,
+	.body-overflow > div:nth-last-child(2):nth-child(odd) div.participant-col:not(:last-child)  ssParticipantBigChip{
+		margin-bottom: 20px;
+	}
+
+}

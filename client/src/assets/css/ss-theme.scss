@@ -1,0 +1,102 @@
+@import '../../../node_modules/@angular/material/theming';
+
+/* Framework Module imports */
+@import '../../app/frameworkModule/appBar/appBar.component.scss';
+
+/* Feature Module imports */
+
+/* UI Module imports */
+@import '../../app/uiModule/complex/card/card.component.scss';
+@import '../../app/uiModule/complex/chip/chip.component.scss';
+@import '../../app/uiModule/complex/dialog/dialog.component.scss';
+@import '../../app/uiModule/complex/bigChip/bigChip.component.scss';
+@import '../../app/uiModule/complex/formPage/formPage.component.scss';
+@import '../../app/uiModule/complex/snackBar/snackBar.component.scss';
+
+@include mat-core();
+
+/* Custom definition for the orange palette that has a white contrast instead of black */
+$ss-orange: (
+  50: #fff3e0,
+  100: #ffe0b2,
+  200: #ffcc80,
+  300: #ffb74d,
+  400: #ffa726,
+  500: #ff9800,
+  600: #fb8c00,
+  700: #f57c00,
+  800: #ef6c00,
+  900: #e65100,
+  A100: #ffd180,
+  A200: #ffab40,
+  A400: #ff9100,
+  A700: #ff6d00,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: white,
+    500: white,
+    600: $black-87-opacity,
+    700: $black-87-opacity,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: black,
+  )
+);
+
+$ss-blue-grey: (
+  50: #eceff1,
+  100: #cfd8dc,
+  200: #b0bec5,
+  300: #90a4ae,
+  400: #78909c,
+  500: #607d8b,
+  600: #546e7a,
+  700: #455a64,
+  800: #37474f,
+  900: #263238,
+  A100: #cfd8dc,
+  A200: #b0bec5,
+  A400: #78909c,
+  A700: #455a64,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: white,
+    400: white,
+    500: white,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: white,
+    A700: $white-87-opacity,
+  )
+);
+
+$ss-theme-primary: mat-palette($ss-blue-grey, 300, 100, 500);
+$ss-theme-accent: mat-palette($ss-orange, 500, 200, 800);
+$ss-theme-warn: mat-palette($mat-red);
+
+$ss-theme: mat-light-theme($ss-theme-primary, $ss-theme-accent, $ss-theme-warn);
+
+@mixin ss-components($theme) {
+  @include ss-appBar($theme);
+  @include ss-big-chip($theme);
+  @include ss-card($theme);
+  @include ss-chip($theme);
+  @include ss-dialog($theme);
+  @include ss-formPage($theme);
+  @include ss-snackbar($theme);
+}
+
+@include angular-material-theme($ss-theme);
+@include ss-components($ss-theme);

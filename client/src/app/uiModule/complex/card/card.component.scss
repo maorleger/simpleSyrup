@@ -1,0 +1,65 @@
+@mixin ss-card($theme) {
+
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+
+	.ss-card{
+		background-color: #fff;
+	}
+
+	.ss-card-header{
+		padding: 10px;
+		padding-top: 12px;
+		padding-bottom: 12px;
+		padding-right: 10px;
+		padding-left: 10px;
+		color: mat-color($accent, default-contrast);
+		background-color: mat-color($accent, 1);
+	}
+
+	.ss-card-title{
+		font-size: 1.2em;
+		font-weight: 600;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.ss-card-title i{
+		margin-top: 1px;
+		padding-right: 10px;
+	}
+
+	.ss-card-body{
+		padding: 20px;
+	}
+
+	.ss-card-footer{
+		padding: 5px;
+		border-top-color: rgba(0, 0, 0, 0.12);
+		border-top-style: solid;
+		border-top-width: 1px;
+	}
+
+	.action-buttons{
+		text-align: right;
+	}
+
+	.action-buttons button:focus{
+		outline-style: none
+	}
+
+	button{
+		transition: transform 0.15s ease-in-out;
+		transform: rotate(0deg);
+	}
+
+	.rotate{
+		transform: rotate(180deg);
+	}
+
+	.overflow-section{
+		overflow: hidden;
+	}
+
+}

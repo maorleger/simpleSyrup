@@ -1,0 +1,8 @@
+body{
+	background-image: url("/assets/img/union-station.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: bottom center;
+	background-attachment: fixed;
+	margin: 0;
+}

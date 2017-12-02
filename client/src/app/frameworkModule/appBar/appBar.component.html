@@ -1,0 +1,19 @@
+<div class="navbar-wrapper">
+
+	<nav class="navbar z-depth-1 fixed-top"> 
+
+		<div>
+
+	      	<button mat-icon-button class="flippy-hamburger" [class.is-active]="!showMenuButton" (click)="onMenuButtonClick($event)">
+			  <span>toggle menu</span>
+			</button>
+
+		</div>
+
+		<div class = "navbar-title">
+			<h1 class="navbar-brand mb-0">{{title}}</h1>
+		</div>
+		
+	</nav>
+
+</div>

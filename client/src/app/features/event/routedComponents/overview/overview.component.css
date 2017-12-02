@@ -1,0 +1,10 @@
+.overview-wrapper{
+	margin-top: 64px;
+}
+
+@media screen and (max-width: 576px) {
+
+	.overview-wrapper{
+		margin-top: 32px;
+	}
+}

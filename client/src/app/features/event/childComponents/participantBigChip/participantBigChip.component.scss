@@ -1,0 +1,25 @@
+.label{
+  font-weight: 600;
+  font-size: 0.8em;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.attending{
+  background-color: #4CAF50;
+}
+
+.tentative{
+  background-color: #7E57C2;
+}
+
+.invited{
+  background-color: #2196F3;
+}
+
+.declined{
+  background-color: #9E9E9E;
+}

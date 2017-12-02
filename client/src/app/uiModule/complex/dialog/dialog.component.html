@@ -1,0 +1,13 @@
+<div class="dialog-wrapper">
+	<h1 mat-dialog-title *ngIf="showTitle">{{data.title}}</h1>
+
+	<div mat-dialog-content *ngIf="showMessage">{{data.message}}</div>
+
+	<div mat-dialog-actions align="end">
+
+		<button mat-button *ngIf="showNegativeButton" class="dialog-button" [mat-dialog-close]="dialogResult.Negative" tabindex="-1">{{data.negativeText}}</button>
+		<button mat-button *ngIf="showAffirmativeButton" class="dialog-button" [mat-dialog-close]="dialogResult.Affirmative" tabindex="2">{{data.affirmativeText}}</button>
+		<button mat-button *ngIf="showOkButton" class="dialog-button" [mat-dialog-close]="dialogResult.Ok" tabindex="-1">Got it!</button>
+
+	</div>
+</div>

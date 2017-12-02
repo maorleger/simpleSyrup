@@ -1,0 +1,13 @@
+@mixin ss-formPage($theme) {
+
+	$background: map-get($theme, background);
+
+	.page-wrapper{
+		background-color: mat-color($background, background, 0.98);
+	}
+
+	.page-content{
+		padding: 30px;
+	}
+
+}

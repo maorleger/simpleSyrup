@@ -1,0 +1,67 @@
+.tab-content{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.participant-col{
+	display: inline-block;
+	margin-bottom: 10px;
+	margin-bottom: 10px;
+	padding-right: 0;
+}
+
+.friends-tab:last-child .participant-col:last-child{
+	margin-bottom: 0;	
+}
+
+ssUserBigChip{
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}
+
+ssUserChip{
+	display: inline-block;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+mat-form-field mat-chip-list input{
+	/*margin-bottom: 5px;*/
+}
+
+button{
+	font-size: 18px;
+}
+
+mat-form-field{
+	width: 100%;
+}
+
+.invite-button-wrapper{
+	text-align: center;
+}
+
+@media screen and (min-width: 992px){
+
+	/* In 3 column mode; grabs the last three participants in the last attendee category */
+	.friends-tab:last-child .participant-col:nth-last-child(-n+3){
+		margin-bottom: 0;	
+	}
+
+}
+
+@media screen and (min-width: 576px){
+
+	/* In 2 column mode; grabs the last three participants in the last attendee category */
+	.friends-tab:last-child .participant-col:nth-last-child(-n+2){
+		margin-bottom: 0;	
+	}
+	
+}
+
+/** Need to override default angular style because it doesn't render correctly **/
+/deep/ .mat-chip-list-wrapper{
+	align-items: flex-end !important;
+	min-height: 37px;
+}

@@ -1,0 +1,50 @@
+<ssCard [title]="'People'" [icon]="'people'" [showOverflowButton]="showOverflowButton" (addButtonClicked)="onAddButtonClicked($event)" (expansionToggled)="onExpansionToggled($event)">
+
+	<!-- Summary: shows only a certain number of participants -->
+	<div inject-body *ngIf="!showEmptyState" class="body-summary">
+
+		<div *ngFor="let participant of participants | slice:0:unExpandedMaxParticipants; let counter=index">
+
+			<div class="row" *ngIf="isDivisibleByTwo(counter)">
+
+				<div class="col-6 participant-col" *ngIf="participants[counter]">
+					<ssParticipantBigChip [participant]="_participants[counter]" class="mb-20"></ssParticipantBigChip>
+				</div>
+
+				<div class="col-6 participant-col" *ngIf="participants[counter+1]">
+					<ssParticipantBigChip [participant]="_participants[counter + 1]" class="mb-20"></ssParticipantBigChip>
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+	<!-- Overflow section; shows all the participants -->
+	<div inject-body-overflow class="body-overflow" *ngIf="!showEmptyState">
+
+		<div *ngFor="let participant of participants | slice:unExpandedMaxParticipants; let counter=index">
+
+			<div class="row" *ngIf="isDivisibleByTwo(counter + unExpandedMaxParticipants)">
+
+				<div class="col-6 participant-col" *ngIf="participants[counter + unExpandedMaxParticipants]">
+					<ssParticipantBigChip [participant]="_participants[counter + unExpandedMaxParticipants]" class="mb-20"></ssParticipantBigChip>
+				</div>
+
+				<div class="col-6 participant-col" *ngIf="participants[counter+ unExpandedMaxParticipants + 1]">
+					<ssParticipantBigChip [participant]="_participants[counter + unExpandedMaxParticipants + 1]" class="mb-20"></ssParticipantBigChip>
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+	<!-- Empty state; no participants for event -->
+	<div inject-body *ngIf="showEmptyState">
+		<span><i>Click the '+' to invite some friends!</i></span>
+	</div>
+
+</ssCard>

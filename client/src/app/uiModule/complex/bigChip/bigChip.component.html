@@ -1,0 +1,30 @@
+<div class="big-chip-wrapper" [class.selectable]="selectable" (click)="onBigChipClicked($event)">
+
+  <div class="picture-wrapper flip-box" [@flipState]="flip">
+
+    <div class="initials-pic flip-box-side flip-box-front" *ngIf="!showPicture">
+      <span>{{pictureReplacementChars}}</span>
+    </div>
+
+    <!-- Need to show the image as a span with a background image to get IE to behave correctly -->
+    <span *ngIf="showPicture" class="picture flip-box-side flip-box-front" [style.background-image]="'url(' + pictureUrl + ')'"></span>
+
+    <div class="flip-box-side flip-box-back checkmark-pic-overlay" [class.uncheckable]="!selectable">
+      <i class="material-icons md-48">check</i>
+    </div>
+
+  <!-- Closing\opening div tags need to touch so there isn't extra white space -->
+  </div><div class = "info-section-wrapper">
+
+    <div>
+
+      <div class="info">
+        <span class="info-text">{{infoText}}</span>
+        <ng-content select="[inject-sub-info]"></ng-content>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

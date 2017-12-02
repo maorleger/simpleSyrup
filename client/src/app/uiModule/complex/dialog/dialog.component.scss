@@ -1,0 +1,12 @@
+@mixin ss-dialog($theme) {
+
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+
+	.dialog-wrapper button.dialog-button{
+		color: rgba(33,150,243,0.9);
+		font-weight: 500;
+	}
+
+}
+

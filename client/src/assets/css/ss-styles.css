@@ -1,0 +1,17 @@
+.mb-20{
+  margin-bottom: 20px;
+}
+
+.form-content{
+	padding-top: 32px;
+}
+
+.divider{
+	border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+button{
+	outline-color: transparent !important;
+}

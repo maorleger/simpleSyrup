@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :events, only: [:show]
+  # resources :events, only: [:show]
+  get "*a", to: "events#index"
 end

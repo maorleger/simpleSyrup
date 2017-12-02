@@ -1,0 +1,15 @@
+<div class="ss-chip-wrapper">
+
+	<div class="picture-wrapper" *ngIf="showPicture">
+		<span class="picture" [style.background-image]="'url(' + photoUrl + ')'"></span>
+	</div>
+
+	<div class="md-chip-wrapper">
+
+		<mat-basic-chip selected="true" [color]="'primary'" [class.removable]="removable">
+			<span>{{displayText}}</span><i class="material-icons" *ngIf="removable" (click)="onRemoveButtonClicked($event)">close</i>
+		</mat-basic-chip>
+
+	</div>
+
+</div>

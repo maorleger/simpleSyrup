@@ -1,0 +1,57 @@
+<ssFormPage>
+
+	<div inject-page-content>
+
+		<ssContentLoadError *ngIf="showLoadError" [message]="loadErrorMessage"></ssContentLoadError>
+
+		<div *ngIf="!showLoadError">
+
+<!-- 			<mat-tab-group>
+
+				<mat-tab label="Search">
+
+					<div class="tab-content"> -->
+
+						<mat-form-field>
+						  <mat-chip-list #chipList>
+						    <ssUserChip *ngFor="let user of invitedUsers" [user]="user" (removeButtonClicked)="onUserChipRemoveButtonClick($event)"></ssUserChip>
+						    <input placeholder="Search for friends" [formControl]="inviteInput"
+						           [matChipInputFor]="chipList"
+						           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						           [matChipInputAddOnBlur]="addOnBlur"
+						           (matChipInputTokenEnd)="add($event)" />
+						  </mat-chip-list>
+						</mat-form-field>
+
+						<div *ngFor="let person of filteredUsersAndParticipants" class="col-lg-4 col-sm-6 col-12 participant-col">
+
+							<ssUserBigChip *ngIf="isUserObject(person)" #userBigChip [user]="person" [selected]="isUserInvited(person)" (userBigChipClicked)="onUserBigChipClicked($event)"></ssUserBigChip>
+
+							<ssParticipantBigChip *ngIf="isParticipantObject(person)" [participant]="person" [selected]="true"></ssParticipantBigChip>
+							
+						</div>
+
+					<!-- </div>
+
+				</mat-tab>
+
+				<mat-tab label="Group">
+
+					<div class="tab-content">
+						Users will be able to use this tab to select groups of people.
+					</div>
+
+
+				</mat-tab>
+
+			</mat-tab-group> -->
+
+			<div class="invite-button-wrapper">
+				<button mat-raised-button color="accent" (click)="onInviteButtonClick($event)">Send Invites</button>
+			</div>
+			
+		</div>
+		
+	</div>
+
+</ssFormPage>

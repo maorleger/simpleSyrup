@@ -1,0 +1,148 @@
+@mixin ss-big-chip($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  $height: 64px;
+
+  .picture-wrapper{
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      color: mat-color($primary, default-contrast);
+      height: $height;
+      width: $height;
+      border-radius: 49%;
+  }
+
+  .big-chip-wrapper{
+    cursor: default;
+  }
+
+  .big-chip-wrapper.selectable{
+    cursor: pointer;
+  }
+
+  .initials-pic{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  	text-align: center;
+    background-color: mat-color($primary, 1);
+  }
+
+  .checkmark-pic-overlay{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #039be5;
+  }
+
+  .checkmark-pic-overlay.uncheckable{
+    opacity: 0.4;
+  }
+
+  .checkmark-pic-overlay i{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .picture{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .initials-pic span{
+  	width: 100%;
+  	height: 100%;
+  	font-size: 24px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  }
+
+  .info-section-wrapper{
+  	display: inline-block;
+  	margin-left: 16px;
+  	height: $height;
+    width: calc(100% - 80px);
+
+  }
+
+  .info-section-wrapper > div{
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	height: 100%;
+    width:  100%;
+  }
+
+  .info{
+    width:  100%;
+  }
+
+  .info-text{
+  	font-weight: 600;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .label{
+    font-weight: 600;
+    font-size: 0.8em;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .attending{
+    background-color: #4CAF50;
+  }
+
+  .tentative{
+    background-color: #2196F3;
+  }
+
+  .invited{
+    background-color: #9E9E9E;
+  }
+
+}
+
+
+
+
+
+
+
+.flip-box{
+  transform-style: preserve-3d;
+}
+
+.flip-box-back{
+  transform: rotateY(179.9deg);
+}
+
+.flip-box-side{
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+}

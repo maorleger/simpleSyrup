@@ -1,0 +1,35 @@
+<div class="ss-card z-depth-1">
+
+	<div class="ss-card-header">
+		<span class="ss-card-title"><i class="material-icons md-24" *ngIf="displayTitleIcon">{{_icon}}</i>{{title}}</span>
+	</div>
+
+	
+	<div class="ss-card-body">
+
+		<ng-content select="[inject-body]"></ng-content>
+
+		<!-- Ony show the overflow content if this card is expanded -->
+		<div *ngIf="expanded" [@expandInCollapseOut]="true" class="overflow-section">
+			<ng-content select="[inject-body-overflow]"></ng-content>
+		</div>
+		
+	</div>
+
+	<div class="ss-card-footer">
+
+		<div class="action-buttons">
+
+			<button mat-icon-button (click)="onExpansionToggled($event)" [class.rotate]="expanded" *ngIf="showOverflowButton">
+				<i class="material-icons md-24">keyboard_arrow_down</i>
+			</button>
+
+			<button mat-icon-button (click)="onAddButtonClicked($event)">
+				<i class="material-icons">add</i>
+			</button>
+			
+		</div>
+		
+	</div>
+
+</div>

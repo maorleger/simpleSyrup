@@ -1,0 +1,82 @@
+@mixin ss-chip($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $chip-height: 32px;
+
+  .ss-chip-wrapper{
+    position: relative;
+    display: flex;
+  }
+
+  .ss-chip-wrapper .picture{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .ss-chip-wrapper .picture-wrapper{
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      color: mat-color($primary, default-contrast);
+      height: $chip-height;
+      width: $chip-height;
+      border-radius: 49%;
+      overflow: hidden;
+      z-index: 2;
+  }
+
+  .md-chip-wrapper{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .ss-chip-wrapper .picture-wrapper ~ .md-chip-wrapper mat-basic-chip span{
+    margin-left: $chip-height;
+  }
+
+  .ss-chip-wrapper .picture-wrapper ~ .md-chip-wrapper mat-basic-chip{
+    padding-left: 8px;
+  }
+
+  .ss-chip-wrapper .picture-wrapper ~ .md-chip-wrapper{
+    margin-left: -$chip-height;
+  }
+
+  .ss-chip-wrapper .md-chip-wrapper mat-basic-chip.removable{
+    padding-right: 0;
+  }
+
+  .ss-chip-wrapper mat-basic-chip{
+    border-radius: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: $chip-height;
+  }
+
+  .ss-chip-wrapper mat-basic-chip i{
+    margin: 4px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    background-color: rgba(0, 0, 0, 0.54);
+    height: 24px;
+    width: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+}
