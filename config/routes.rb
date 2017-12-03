@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :events, only: [:show]
-  get "*a", to: "events#index"
+  resource :home, only: [:show]
+
+  root to: "home#show"
+
+  get "*a", to: "home#show"
 end
