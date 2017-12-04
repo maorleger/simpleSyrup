@@ -18,13 +18,23 @@ const eventRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        component: OverviewComponent
+        component: OverviewComponent,
+        data: {
+          animation: {
+            value: 'overview',
+          }
+        }
       },
       {
         path: 'EditParticipants',
         pathMatch: 'full',
         canDeactivate: [CanDeactivateGuard],
-        component: EditParticipantsComponent
+        component: EditParticipantsComponent,
+        data: {
+          animation: {
+            value: 'eventSubPage',
+          }
+        }
       }
     ]
   }
