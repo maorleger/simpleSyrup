@@ -263,12 +263,16 @@ export class EventService{
 			putParams = putParams + '{"user_id": ' + invitedUser.id + '}';
 		})
 
-		putParams += "]}}";
+    //Build the request body string
+    let putParams = {
+      "event" : {
+        "participants_attributes": invitedUsers.map(user => { return { "user_id" : user.id } })
+      }
+    }
 
-		return this.httpService.put("events/" + eventId, putParams).map(result => {
-			return result;
-		});
-
+    return this.httpService.put("events/" + eventId, JSON.stringify(putParams)).map(result => {
+      return result;
+    });
 	}
 
 }
