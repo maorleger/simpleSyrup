@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     loadChildren: '../features/event/event.module#EventModule',
     data: { preload: false }
   },
-  { path: '',   redirectTo: '/events/10', pathMatch: 'full' },
+  { path: '',   redirectTo: '/events/1', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

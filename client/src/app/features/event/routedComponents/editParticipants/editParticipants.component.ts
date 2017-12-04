@@ -157,29 +157,29 @@ export class EditParticipantsComponent implements OnInit {
 
 	//TODO: Implement this method
 	canDeactivate(): Observable<boolean> | boolean {
-    //
-		// //Check for any pending changes. if they exist, ask user what to do and take appropriate action.		
-		// if(!UtilityFunctions.isNullOrUndefined(this._invitedUsers) && this._invitedUsers.length > 0){
-    //
-		// 	let dialog = this.dialogService.openDialog({ 
-		// 		title: "Discard Invites?", 
-		// 		message: "You have some invitations waiting to be sent. If you leave without sending them, they will be discarded.",
-		// 		affirmativeText: "DISCARD",
-		// 		negativeText: "STAY"
-		// 	})
-    //
-		// 	return dialog.afterClosed().map(result => {
-    //
-		// 		if(result === DialogResult.Affirmative){
-		// 			return true;	
-		// 		}
-    //
-		// 		return false;
-    //
-		// 	});
-    //
-		// }
-    //
+    
+		//Check for any pending changes. if they exist, ask user what to do and take appropriate action.		
+		if(!UtilityFunctions.isNullOrUndefined(this._invitedUsers) && this._invitedUsers.length > 0){
+    
+			let dialog = this.dialogService.openDialog({ 
+				title: "Discard Invites?", 
+				message: "You have some invitations waiting to be sent. If you leave without sending them, they will be discarded.",
+				affirmativeText: "DISCARD",
+				negativeText: "STAY"
+			})
+    
+			return dialog.afterClosed().map(result => {
+    
+				if(result === DialogResult.Affirmative){
+					return true;	
+				}
+    
+				return false;
+    
+			});
+    
+		}
+    
 		return true;
 
 	}

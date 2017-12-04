@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 //Feature imports
-// import { CanDeactivateGuard }    from '../canDeactivateGuard.service';
+import { CanDeactivateGuard }    from '../canDeactivateGuard.service';
 
 //Local imports
 import { OverviewComponent } from './routedComponents/overview/overview.component';
@@ -17,11 +17,13 @@ const eventRoutes: Routes = [
     children: [
       {
         path: '',
+        pathMatch: 'full',
         component: OverviewComponent
       },
       {
         path: 'EditParticipants',
-        // canDeactivate: [CanDeactivateGuard],
+        pathMatch: 'full',
+        canDeactivate: [CanDeactivateGuard],
         component: EditParticipantsComponent
       }
     ]
@@ -36,7 +38,7 @@ const eventRoutes: Routes = [
     RouterModule
   ],  
   providers: [
-    // CanDeactivateGuard
+    CanDeactivateGuard
   ]
 })
 
