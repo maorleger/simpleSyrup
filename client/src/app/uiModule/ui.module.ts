@@ -12,6 +12,7 @@ import { DialogComponent } from './complex/dialog/dialog.component';
 import { DialogResult } from './complex/dialog/dialogResult';
 import { DialogService } from './complex/dialog/dialog.service';
 import { FormPageComponent } from './complex/formPage/formPage.component';
+import { LoaderSpinnerComponent } from './complex/loaderSpinner/loaderSpinner.component';
 import { MaterialDesignModule } from '../uiModule/materialDesign.module';
 import { SnackBarComponent } from './complex/snackBar/snackBar.component';
 import { SnackBarService } from './complex/snackBar/snackBar.service';
@@ -28,6 +29,7 @@ import { SnackBarService } from './complex/snackBar/snackBar.service';
     ContentLoadErrorComponent,
     DialogComponent,
     FormPageComponent,
+    LoaderSpinnerComponent,
     SnackBarComponent
   ],
   exports: [
@@ -37,6 +39,7 @@ import { SnackBarService } from './complex/snackBar/snackBar.service';
     ContentLoadErrorComponent,
     DialogComponent,
     FormPageComponent,
+    LoaderSpinnerComponent,
     SnackBarComponent
   ],
   entryComponents: [
@@ -56,5 +59,6 @@ export { ContentLoadErrorComponent } from './complex/contentLoadError/contentLoa
 export { DialogComponent } from './complex/dialog/dialog.component';
 export { DialogResult } from './complex/dialog/dialogResult';
 export { DialogService } from './complex/dialog/dialog.service';
+export { LoaderSpinnerComponent } from './complex/loaderSpinner/loaderSpinner.component';
 export { SnackBarComponent } from './complex/snackBar/snackBar.component';
 export { SnackBarService } from './complex/snackBar/snackBar.service';

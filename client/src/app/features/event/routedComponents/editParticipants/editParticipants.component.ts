@@ -74,10 +74,6 @@ export class EditParticipantsComponent implements OnInit {
 		return !UtilityFunctions.isNullUndefinedOrEmpty(this.loadErrorMessage);
 	}
 
-	get marginTop(): string{
-		return window.innerHeight * 0.12 + "px";
-	}
-
 	constructor(private appBarService: AppBarService, private eventService: EventService, private route: ActivatedRoute, private router: Router, private dialogService: DialogService, private snackBarService: SnackBarService, private userService: UserService) {}
 
 	/****************
@@ -107,7 +103,7 @@ export class EditParticipantsComponent implements OnInit {
 
 			return _zippedObservable;
 
-		}).delay(3000).subscribe((zippedResults) => {
+		}).subscribe((zippedResults) => {
 
 			this._loading = false;
 
