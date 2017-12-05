@@ -14,9 +14,11 @@ describe('AppBarComponent', () => {
 
 	//Source for simulating when one one of the url parameters change
   	const titleChangeSource: Subject<string> = new Subject<string>();
+  	const showLoaderSource: Subject<boolean> = new Subject<boolean>();
 
 	const appBarServiceStub = {
-		get titleSource(): Observable<string> { return titleChangeSource.asObservable(); }
+		get titleSource(): Observable<string> { return titleChangeSource.asObservable(); },
+		get showLoaderSource(): Observable<boolean> { return showLoaderSource.asObservable(); }
 	};
 
 	beforeEach(() => {
@@ -36,6 +38,24 @@ describe('AppBarComponent', () => {
 		titleChangeSource.next(eventName);
 
 		expect(testComponent.title).toEqual(eventName);
+		done();
+
+	});
+
+	it('showLoader is updated when notified by appBar service', done => {
+
+		let showLoader: boolean = true;
+
+		//The appbar should not be showing the loader when initalized
+		expect(testComponent.showLoader).toBeFalsy();
+		
+		//Call onInit to wire up to the appBar service
+		testComponent.ngOnInit();
+
+		//Simulate the update title event firing
+		showLoaderSource.next(showLoader);
+
+		expect(testComponent.showLoader).toEqual(showLoader);
 		done();
 
 	});

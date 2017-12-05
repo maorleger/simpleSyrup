@@ -24,5 +24,17 @@ describe('AppBarService', () => {
 
 	});
 
+	it('showLoaderSource fires when updateShowLoader is called', done => {
+
+		let showLoader: boolean = true;
+
+		testAppBarService.showLoaderSource.subscribe((showLoader: boolean) => {
+			expect(showLoader).toEqual(showLoader);
+			done();
+		});
+
+		testAppBarService.updateShowLoader(showLoader);
+
+	});
 
 });

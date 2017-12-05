@@ -62,13 +62,11 @@ export class EditParticipantsComponent implements OnInit {
 		return this._invitedUsers;
 	}
 
+	/*
+	* Indicates if this component is loading data
+	*/
 	get loading(): boolean{
 		return this._loading;
-	}
-
-	set loading(val: boolean){
-		this._loading = val;
-		this.appBarService.updateShowLoader(val);
 	}
 
 	get UsersAndParticipants(): (User|Participant)[]{
@@ -99,8 +97,7 @@ export class EditParticipantsComponent implements OnInit {
 			//Save the event id
 			this.eventId = +params.get('eventId');
 
-			
-			this.loading = true;
+			this.setLoading(true);
 
 			//Combine the API calls for getting the event participants, system users, and event name
 			let _zippedObservable: Observable<{ userResult: HttpResult<User[]>, participantResult: HttpResult<Participant[]>, getNameResult: HttpResult<string> }> = Observable.zip(this.userService.getAllSystemUsers(USE_MOCK_DATA), this.eventService.getEventParticipants(+params.get('eventId'), USE_MOCK_DATA), this.eventService.getEventName(+params.get('eventId'), USE_MOCK_DATA), (userResult, participantResult, getNameResult) => {
@@ -109,7 +106,7 @@ export class EditParticipantsComponent implements OnInit {
 
 			return _zippedObservable;
 
-		}).delay(3000).subscribe((zippedResults) => {
+		}).subscribe((zippedResults) => {
 
 			//If all the calls were successfull, show the returned data
 			if(zippedResults.participantResult.isValid && zippedResults.userResult.isValid && zippedResults.getNameResult.isValid){
@@ -149,7 +146,7 @@ export class EditParticipantsComponent implements OnInit {
 
 			}
 
-			this.loading = false;
+			this.setLoading(false);
 
 		});
 
@@ -352,6 +349,17 @@ export class EditParticipantsComponent implements OnInit {
       });
 	
    }
+
+   	/*
+   	* Updates the _loading variable of this component to the given value. Passes that value along 
+   	* to the app bar service so it shows\hides the loader bar.
+   	*/
+	private setLoading(val: boolean){
+		
+		this._loading = val;
+
+		this.appBarService.updateShowLoader(val);
+	}
 
    	private userAndParticipantArraySortByDisplayName(a, b){
 

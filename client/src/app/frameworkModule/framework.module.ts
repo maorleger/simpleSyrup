@@ -4,11 +4,11 @@ import { RouterModule }   from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Material design imports: Since the app bar needs the progress loader, just loading that one component instead of the whole material module
+import { MatProgressBarModule } from '@angular/material';
+
 //Service module imports
 import { ServiceModule } from '../serviceModule/service.module'
-
-//UI Module imports
-import { MaterialDesignModule } from '../uiModule/materialDesign.module';
 
 //Local components
 import { SimpleSyrupComponent } from './simpleSyrup/simpleSyrup.component';
@@ -26,7 +26,7 @@ import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialDesignModule,
+    MatProgressBarModule,
     ServiceModule.forRoot(),
   ],
   providers: [],

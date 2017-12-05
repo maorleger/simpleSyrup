@@ -10,7 +10,7 @@ import { Participant, User } from '../../../../lib/domain/domain.module';
 import { MockActivatedRoute } from '../../../../lib/testing/mockActivatedRoute'
 
 //Service module imports
-import { UserService, HttpMessage, HttpMessageType, HttpResult } from '../../../../serviceModule/service.module'
+import { AppBarService, UserService, HttpMessage, HttpMessageType, HttpResult } from '../../../../serviceModule/service.module'
 
 //Feature imports
 import { EventService } from '../../event.service';
@@ -25,7 +25,12 @@ describe('EditParticipantsComponent', () => {
 	let route: MockActivatedRoute
 	
 	//Source for simulating when one one of the url parameters change
-	const paramChangeSource: Subject<{[key: string] : any}> = new Subject<{[key: string] : any}>();
+	let paramChangeSource: Subject<{[key: string] : any}>;
+
+	const appBarServiceStub = {
+	  updateTitle(title: String) { },
+	  updateShowLoader(showLoader: boolean) { }
+	};
 
 	const eventServiceStub = {
 	    getEventParticipants(eventId: number): Observable<HttpResult<Participant[]>> { throw Error() },
@@ -38,13 +43,14 @@ describe('EditParticipantsComponent', () => {
 
 	beforeEach(() => {
 
+		paramChangeSource = new Subject<{[key: string] : any}>();
 	 	parentRoute = new MockActivatedRoute();
 	 	parentRoute.paramMap = paramChangeSource.asObservable();
 		
 		route = new MockActivatedRoute();
 		route.parent = parentRoute;
 
-		testComponent = new EditParticipantsComponent(null, eventServiceStub as EventService, route as ActivatedRoute, null, null, null, userServiceStub as UserService);
+		testComponent = new EditParticipantsComponent(appBarServiceStub as AppBarService, eventServiceStub as EventService, route as ActivatedRoute, null, null, null, userServiceStub as UserService);
 
 	});
 
@@ -102,6 +108,96 @@ describe('EditParticipantsComponent', () => {
 		expect(testComponent.showLoadError).toBeFalsy();
 
 	    done();
+
+	});
+
+	it("loading is true while items are being retreived", done => {
+
+		//Variable that keeps track of what value we expect appBarServiceStub.updateShowLoader to be called with.
+		//The first call should be true
+		let expectedShowLoaderValue: boolean = true;
+
+		//Component should be initialized with loading = false
+		expect(testComponent.loading).toBeFalsy();
+
+		spyOn(eventServiceStub, "getEventParticipants").and.callFake((eventId) => {
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getEventParticipents
+			return Observable.of(new HttpResult<Participant[]>(null));
+
+		});
+
+		spyOn(eventServiceStub, "getEventName").and.callFake((eventId) => {
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getEventParticipents
+			return Observable.of(new HttpResult<string>(null));
+
+		});
+		
+		spyOn(userServiceStub, "getAllSystemUsers").and.callFake(() => {
+
+			//After all 3 observables have resolved, the loader shouldn't be showing anymore
+			expectedShowLoaderValue = false;
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getAllSystemUsers
+			return Observable.of(new HttpResult<User[]>(null));
+		});
+
+		spyOn(appBarServiceStub, "updateShowLoader").and.callFake((showLoader: boolean) => {
+			expect(showLoader).toEqual(expectedShowLoaderValue);
+		});
+
+		testComponent.ngOnInit();
+
+	    //Emit parameter change
+	    paramChangeSource.next({eventId: 10, get(){ return 10; }});
+
+		expect(appBarServiceStub.updateShowLoader).toHaveBeenCalledTimes(2);
+		expect(testComponent.loading).toBeFalsy();
+
+		done();
+
+	});
+
+	it("Calls the app bar service upon receiving the event name", done => {
+
+		let eventName = "Ace's birthday";
+
+		spyOn(eventServiceStub, "getEventParticipants").and.callFake((eventId) => {
+
+			//Return mock participant data
+			return Observable.of(new HttpResult<Participant[]>(null));
+
+		});	
+
+		spyOn(userServiceStub, "getAllSystemUsers").and.callFake(() => {
+
+			//Return mock user data
+			return Observable.of(new HttpResult<User[]>(null));
+
+		});
+
+		spyOn(eventServiceStub, "getEventName").and.callFake((eventId) => {
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getEventParticipents
+			return Observable.of(new HttpResult<string>(eventName));
+
+		});
+
+		spyOn(appBarServiceStub, "updateTitle").and.callFake((title: string) => {
+			expect(title).toEqual(eventName);
+		});
+
+		//Need to call onInit to wire up subscriptions
+		testComponent.ngOnInit();
+
+		//Emit parameter change so the event name is retrieved
+		paramChangeSource.next({eventId: 10, get(){ return 10; }});
+
+		expect(eventServiceStub.getEventName).toHaveBeenCalled();
+		expect(appBarServiceStub.updateTitle).toHaveBeenCalled();
+
+		done();
 
 	});
 
