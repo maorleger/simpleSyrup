@@ -17,23 +17,37 @@ import { EventService } from '../../event.service';
 //Service module imports
 import { HttpResult, AppBarService, UserService } from '../../../../serviceModule/service.module'
 
+//Library imports
+import { Transitions } from '../../../../lib/animations/transitions';
+
 //Local component imports
 import { ParticipantCardComponent } from '../../childComponents/participantCard/participantCard.component'
 
 @Component({
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  styleUrls: ['./overview.component.css'],
+  animations: [
+    Transitions.fadeInOut
+  ]
 })
 export class OverviewComponent implements OnInit {
 
   //Property backing variables
   private _event: Event;
+  private _loading: boolean = false;
 
   /*
   * Event this component is displaying
   */
   get event(): Event{
     return this._event;
+  }
+
+  /*
+  * Indicates if this component is loading data
+  */
+  get loading(): boolean{
+    return this._loading;
   }
 
   /*
@@ -55,6 +69,9 @@ export class OverviewComponent implements OnInit {
 
     //Whenever the id of the event changes, get the overview of the new event
     this.route.paramMap.switchMap((params: ParamMap) => {
+
+      this.setLoading(true);
+
       return this.eventService.getEvent(+params.get('eventId'));
     }).subscribe((result: HttpResult<Event>) => {
 
@@ -80,8 +97,19 @@ export class OverviewComponent implements OnInit {
         
       }
 
+      this.setLoading(false);
+
     });
 
+  }
+
+  /*
+  * Updates the _loading variable of this component to the given value. Passes that value along 
+  * to the app bar service so it shows\hides the loader bar.
+  */
+  private setLoading(val: boolean){
+    this._loading = val;
+    this.appBarService.updateShowLoader(val);
   }
 
 }

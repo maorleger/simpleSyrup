@@ -49,6 +49,11 @@
     height: 100%;
   }
 
+  mat-progress-bar.loader-bar{
+    position: absolute;
+    left: 0;
+  }
+
   /** Style for flippy hamburger **/
   .flippy-hamburger {
     display: block;

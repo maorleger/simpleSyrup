@@ -1,4 +1,4 @@
-<div class="navbar-wrapper">
+<div class="navbar-wrapper" [@fadeInOut]>
 
 	<nav class="navbar z-depth-1 fixed-top"> 
 
@@ -18,4 +18,4 @@
 
 </div>
 
-<mat-progress-bar [mode]="'indeterminate'" [color]="'primary'" *ngIf="showLoader"></mat-progress-bar>
+<mat-progress-bar [mode]="'indeterminate'" [color]="'primary'" *ngIf="showLoader" [@fadeInOut] class="loader-bar"></mat-progress-bar>

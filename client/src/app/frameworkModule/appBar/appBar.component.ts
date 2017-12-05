@@ -7,10 +7,16 @@ import { Subscription } from 'rxjs/Subscription';
 //Service module imports
 import { AppBarService } from '../../serviceModule/service.module';
 
+//Library imports
+import { Transitions } from '../../lib/animations/transitions';
+
 @Component({
   selector: 'ssAppBar',
   templateUrl: './appBar.component.html',
-  styleUrls: ['./appBar.component.scss']
+  styleUrls: ['./appBar.component.scss'],
+  animations: [
+    Transitions.fadeInOut
+  ]
 })
 export class AppBarComponent implements OnInit {
 
@@ -41,7 +47,6 @@ export class AppBarComponent implements OnInit {
 	}
 
 	constructor(private navbarService: AppBarService) { }
-	// constructor() { }
 
 	/****************
 	* ng Events

@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 //Library imports
 import { Participant, User } from '../../../../lib/domain/domain.module';
 import { UtilityFunctions } from '../../../../lib/utilityFunctions';
+import { Transitions } from '../../../../lib/animations/transitions';
 
 //Service module imports
 import { AppBarService, UserService, HttpResult } from '../../../../serviceModule/service.module'
@@ -34,7 +35,10 @@ const USE_MOCK_DATA = false;
 
 @Component({
   templateUrl: './editParticipants.component.html',
-  styleUrls: ['./editParticipants.component.css']
+  styleUrls: ['./editParticipants.component.css'],
+  animations: [
+    Transitions.fadeInOutOnLoad
+  ]
 })
 export class EditParticipantsComponent implements OnInit {
 
@@ -42,6 +46,7 @@ export class EditParticipantsComponent implements OnInit {
   	private _usersAndParticipants: (User|Participant)[] = []; 
   	private _invitedUsers: User[] = []; 
   	private _loading: boolean = false;
+  	private _formState: string = "default";
 
   	private eventId: number;
 	private inviteInput: FormControl = new FormControl();
@@ -60,6 +65,10 @@ export class EditParticipantsComponent implements OnInit {
 
 	get invitedUsers(): User[]{
 		return this._invitedUsers;
+	}
+
+	get formState(): string{
+		return this._formState;
 	}
 
 	/*
@@ -153,7 +162,7 @@ export class EditParticipantsComponent implements OnInit {
 			}
 
 			this.setLoading(false);
-
+			
 		});
 
 	}
@@ -363,6 +372,14 @@ export class EditParticipantsComponent implements OnInit {
 	private setLoading(val: boolean){
 		
 		this._loading = val;
+
+		if(this._loading){
+			this._formState = "loading";
+		}
+
+		else{
+			this._formState = "loaded";
+		}
 
 		this.appBarService.updateShowLoader(val);
 	}
