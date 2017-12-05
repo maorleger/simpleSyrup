@@ -14,11 +14,14 @@ import { AppBarService } from '../../serviceModule/service.module';
 })
 export class AppBarComponent implements OnInit {
 
-	private _title: string;
 	private navbarTitleUpdateSubscription: Subscription;
+	private showLoaderUpdateSubscription: Subscription;
 
 	//property backing variables
+	private _title: string;
 	private _showMenuButton: boolean = true;
+	private _showLoader: boolean = false;
+
 
 	/************
 	* Properties
@@ -33,6 +36,10 @@ export class AppBarComponent implements OnInit {
 		return this._title;
 	}
 
+	get showLoader(): boolean{
+		return this._showLoader;
+	}
+
 	constructor(private navbarService: AppBarService) { }
 	// constructor() { }
 
@@ -43,6 +50,10 @@ export class AppBarComponent implements OnInit {
 
 		this.navbarTitleUpdateSubscription = this.navbarService.titleSource.subscribe((title: string) => {
 			this._title = title;
+		});
+
+		this.showLoaderUpdateSubscription  = this.navbarService.showLoaderSource.subscribe((showLoader: boolean) => {
+			this._showLoader = showLoader;
 		});
 
 	}

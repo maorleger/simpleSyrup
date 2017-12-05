@@ -25,10 +25,10 @@ export class Transitions {
     query(':enter', animationStyle({ position: 'absolute', left: 0, right: 0, transform: 'translate3d(-100%,0,0)' }), {optional:true}),
     group([
       query(':leave', group([
-        animationAnimate('500ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(100%,0,0)' })), // y: '-100%'
+        animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(100%,0,0)' })), // y: '-100%'
       ]), {optional:true}),
       query(':enter', group([
-        animationAnimate('500ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
+        animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
       ]), {optional:true})
     ])
   ]
@@ -39,10 +39,10 @@ export class Transitions {
 
     group([
       query(':leave', group([
-        animationAnimate('500ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(-100%,0,0)' })), // y: '-100%'
+        animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(-100%,0,0)' })), // y: '-100%'
       ]), {optional:true}),
       query(':enter', group([
-        animationAnimate('500ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
+        animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
       ]), {optional:true})
     ])
   ]

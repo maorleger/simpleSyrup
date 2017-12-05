@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Service module imports
 import { ServiceModule } from '../serviceModule/service.module'
 
+//UI Module imports
+import { MaterialDesignModule } from '../uiModule/materialDesign.module';
+
 //Local components
 import { SimpleSyrupComponent } from './simpleSyrup/simpleSyrup.component';
 import { AppBarComponent } from './appBar/appBar.component';
@@ -23,7 +26,8 @@ import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ServiceModule.forRoot()
+    MaterialDesignModule,
+    ServiceModule.forRoot(),
   ],
   providers: [],
   bootstrap: [SimpleSyrupComponent]

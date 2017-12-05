@@ -13,13 +13,22 @@ import { Subject } from 'rxjs/Subject';
 export class AppBarService{
 
 	private _titleSource = new Subject<string>();
+	private _showLoaderSource = new Subject<boolean>();
 
    	get titleSource(): Observable<string> {
         return this._titleSource.asObservable();
     }
 
+    get showLoaderSource(): Observable<boolean>{
+    	return this._showLoaderSource.asObservable();	
+    }
+
     updateTitle(title: string) {
         this._titleSource.next(title);
+    }
+
+    updateShowLoader(showLoader: boolean){
+    	this._showLoaderSource.next(showLoader);
     }
 
 }

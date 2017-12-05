@@ -10,6 +10,7 @@ import 'rxjs/add/observable/of';
 import "rxjs/add/observable/zip";
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
 
 //Library imports
@@ -40,6 +41,7 @@ export class EditParticipantsComponent implements OnInit {
 	//Property backing variables
   	private _usersAndParticipants: (User|Participant)[] = []; 
   	private _invitedUsers: User[] = []; 
+  	private _loading: boolean = false;
 
   	private eventId: number;
 	private inviteInput: FormControl = new FormControl();
@@ -58,6 +60,15 @@ export class EditParticipantsComponent implements OnInit {
 
 	get invitedUsers(): User[]{
 		return this._invitedUsers;
+	}
+
+	get loading(): boolean{
+		return this._loading;
+	}
+
+	set loading(val: boolean){
+		this._loading = val;
+		this.appBarService.updateShowLoader(val);
 	}
 
 	get UsersAndParticipants(): (User|Participant)[]{
@@ -88,6 +99,9 @@ export class EditParticipantsComponent implements OnInit {
 			//Save the event id
 			this.eventId = +params.get('eventId');
 
+			
+			this.loading = true;
+
 			//Combine the API calls for getting the event participants, system users, and event name
 			let _zippedObservable: Observable<{ userResult: HttpResult<User[]>, participantResult: HttpResult<Participant[]>, getNameResult: HttpResult<string> }> = Observable.zip(this.userService.getAllSystemUsers(USE_MOCK_DATA), this.eventService.getEventParticipants(+params.get('eventId'), USE_MOCK_DATA), this.eventService.getEventName(+params.get('eventId'), USE_MOCK_DATA), (userResult, participantResult, getNameResult) => {
 				return {userResult: userResult, participantResult: participantResult, getNameResult: getNameResult }
@@ -95,7 +109,7 @@ export class EditParticipantsComponent implements OnInit {
 
 			return _zippedObservable;
 
-		}).subscribe((zippedResults) => {
+		}).delay(3000).subscribe((zippedResults) => {
 
 			//If all the calls were successfull, show the returned data
 			if(zippedResults.participantResult.isValid && zippedResults.userResult.isValid && zippedResults.getNameResult.isValid){
@@ -134,6 +148,8 @@ export class EditParticipantsComponent implements OnInit {
 				this.loadErrorMessage = "Oh no! Something went wrong trying to load this page. Try a refresh!";
 
 			}
+
+			this.loading = false;
 
 		});
 
