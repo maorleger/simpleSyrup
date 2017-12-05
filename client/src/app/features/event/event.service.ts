@@ -156,6 +156,11 @@ export class EventService{
 
 		//Return fake data
 		if(useMockData){
+
+
+			//Make the mock data have the same id as the given; this just makes testing more convenient
+			this.mockEventData.id = eventId;
+
 			return Observable.of(new HttpResult<Event>(this.mockEventData, null)).map(result => {
 
 				//Save the event that was retreived so data won't have to be retreived again

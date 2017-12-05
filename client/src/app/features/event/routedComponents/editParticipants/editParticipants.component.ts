@@ -97,7 +97,10 @@ export class EditParticipantsComponent implements OnInit {
 			//Save the event id
 			this.eventId = +params.get('eventId');
 
-			this.setLoading(true);
+			//Show the loading bar only if the needed data isn't already ached
+			if(UtilityFunctions.isNullOrUndefined(this.eventService.Event) || UtilityFunctions.isNullOrUndefined(this.userService.CachedUsers)){
+				this.setLoading(true);
+			}
 
 			//Combine the API calls for getting the event participants, system users, and event name
 			let _zippedObservable: Observable<{ userResult: HttpResult<User[]>, participantResult: HttpResult<Participant[]>, getNameResult: HttpResult<string> }> = Observable.zip(this.userService.getAllSystemUsers(USE_MOCK_DATA), this.eventService.getEventParticipants(+params.get('eventId'), USE_MOCK_DATA), this.eventService.getEventName(+params.get('eventId'), USE_MOCK_DATA), (userResult, participantResult, getNameResult) => {
@@ -121,7 +124,10 @@ export class EditParticipantsComponent implements OnInit {
 
 					this._usersAndParticipants = this._usersAndParticipants.concat(zippedResults.userResult.value.filter(user => {
 						return !this._usersAndParticipants.find(person => {
-							return +(person as Participant).user.id === user.id;
+
+							//Need to check both user id fields; either could be used depending on where the data came from
+							return +(person as Participant).user.id === user.id || +(person as Participant).userId === user.id;
+
 						});
 
 					}));

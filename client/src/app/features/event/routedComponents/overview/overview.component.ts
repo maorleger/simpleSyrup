@@ -15,7 +15,7 @@ import { Event, Participant } from '../../../../lib/domain/domain.module';
 import { EventService } from '../../event.service';
 
 //Service module imports
-import { HttpResult, AppBarService } from '../../../../serviceModule/service.module'
+import { HttpResult, AppBarService, UserService } from '../../../../serviceModule/service.module'
 
 //Local component imports
 import { ParticipantCardComponent } from '../../childComponents/participantCard/participantCard.component'
@@ -43,7 +43,7 @@ export class OverviewComponent implements OnInit {
     return UtilityFunctions.isNullOrUndefined(this.event) ? null : this.event.participants;
   }
 
-  constructor(private eventService: EventService, private appBarService: AppBarService, private route: ActivatedRoute) { }
+  constructor(private eventService: EventService, private appBarService: AppBarService, private route: ActivatedRoute, private userService: UserService) { }
 
   /****************
   * ng Events
@@ -51,9 +51,11 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
 
+    this.userService.getAllSystemUsers().subscribe();
+
     //Whenever the id of the event changes, get the overview of the new event
     this.route.paramMap.switchMap((params: ParamMap) => {
-      return this.eventService.getEvent(+params.get('eventId'), true);
+      return this.eventService.getEvent(+params.get('eventId'));
     }).subscribe((result: HttpResult<Event>) => {
 
       if(result.isValid){
