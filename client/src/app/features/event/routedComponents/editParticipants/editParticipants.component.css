@@ -42,6 +42,11 @@ mat-form-field{
 	text-align: center;
 }
 
+mat-progress-spinner{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 @media screen and (min-width: 992px){
 
 	/* In 3 column mode; grabs the last three participants in the last attendee category */

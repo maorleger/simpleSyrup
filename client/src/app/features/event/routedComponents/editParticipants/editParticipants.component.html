@@ -1,4 +1,6 @@
-<ssFormPage>
+<mat-progress-spinner *ngIf="loading" [mode]="'indeterminate'" [color]="'accent'" [style.margin-top]="marginTop"></mat-progress-spinner>
+
+<ssFormPage *ngIf="!loading">
 
 	<div inject-page-content>
 

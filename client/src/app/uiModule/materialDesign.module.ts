@@ -9,6 +9,7 @@ import {
   MatDialogModule,
   MatFormFieldModule, 
   MatInputModule, 
+  MatProgressSpinnerModule,
   MatOptionModule,
   MatTabsModule
 } from '@angular/material';
@@ -24,6 +25,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
+    MatProgressSpinnerModule,
     MatTabsModule
   ],
   exports: [
@@ -36,6 +38,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
+    MatProgressSpinnerModule,
     MatTabsModule
   ]
 })
