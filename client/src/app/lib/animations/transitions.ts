@@ -2,7 +2,7 @@
 import { AnimationEntryMetadata, transition, trigger, animate, state, style } from '@angular/core';
 
 /** Note: not ideal that was are using animation stuff from both @angular/core and @angular/animations. This is the result of combing angular 2\4 patterns. Works for now; consider changing in the future. **/
-import { trigger as animationTrigger, state as animationState, style as animationStyle, animate as animationAnimate, transition as animationTransition, group, query } from '@angular/animations';
+import { AnimationQueryMetadata, AnimationGroupMetadata, trigger as animationTrigger, state as animationState, style as animationStyle, animate as animationAnimate, transition as animationTransition, group, query } from '@angular/animations';
 
 //Local folder imports
 import { Animations } from './animations';
@@ -46,30 +46,30 @@ export class Transitions {
       transition('loaded => loading', animate(Animations.durationShort))
   ])
 
-  static slideLeft = [
+  static slideLeft: (AnimationQueryMetadata | AnimationGroupMetadata)[] = [
     query(':leave', animationStyle({ position: 'absolute', left: 0, right: 0 ,transform: 'translate3d(0%,0,0)' }), {optional:true}),
     query(':enter', animationStyle({ position: 'absolute', left: 0, right: 0, transform: 'translate3d(-100%,0,0)' }), {optional:true}),
     group([
-      query(':leave', group([
+      query(':leave', [
         animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(100%,0,0)' })), // y: '-100%'
-      ]), {optional:true}),
-      query(':enter', group([
+      ], {optional:true}),
+      query(':enter', [
         animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
-      ]), {optional:true})
+      ], {optional:true})
     ])
   ]
 
-  static slideRight = [
+  static slideRight: (AnimationQueryMetadata | AnimationGroupMetadata)[]  = [
     query(':leave', animationStyle({ position: 'absolute', left: 0, right: 0 , transform: 'translate3d(0%,0,0)'}), {optional:true}),
     query(':enter', animationStyle({ position: 'absolute', left: 0, right: 0, transform: 'translate3d(100%,0,0)'}), {optional:true}),
 
     group([
-      query(':leave', group([
+      query(':leave', [
         animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(-100%,0,0)' })), // y: '-100%'
-      ]), {optional:true}),
-      query(':enter', group([
+      ], {optional:true}),
+      query(':enter', [
         animationAnimate('300ms cubic-bezier(.35,0,.25,1)', animationStyle({ transform: 'translate3d(0%,0,0)' })),
-      ]), {optional:true})
+      ], {optional:true})
     ])
   ]
 
