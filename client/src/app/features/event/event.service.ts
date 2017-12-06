@@ -172,6 +172,10 @@ export class EventService{
 			});	
 		}
 
+		if(!UtilityFunctions.isNullOrUndefined(this._event) && this._event.id === eventId){
+			return Observable.of(new HttpResult<Event>(this._event, null));
+		}
+
 		//Grab the event information from the API
 		return this.httpService.getObject<Event>(Event, "events/" + eventId + ".json").map(result => {
 
@@ -254,7 +258,7 @@ export class EventService{
 
 	}
 
-	inviteUsersToEvent(invitedUsers: User[], eventId: number): Observable<HttpResult<any>>{
+	inviteUsersToEvent(invitedUsers: User[], eventId: number): Observable<HttpResult<Participant[]>>{
 
 		//If there aren't any users to invite, do nothing
 		if(UtilityFunctions.isNullOrUndefined(invitedUsers) || invitedUsers.length <= 0){
@@ -269,7 +273,22 @@ export class EventService{
 	    }
 
 	    return this.httpService.put("events/" + eventId, JSON.stringify(putParams)).map(result => {
-	      return result;
+	      
+	    	if(result.isValid){
+
+				let returnedEvent: Event = JsonMapper.deserialize<Event>(Event, JSON.parse(result.value._body));
+
+				//If the given event is cached, update the cache with the new list of event paticipants
+				if(!UtilityFunctions.isNullOrUndefined(this._event) && this._event.id === eventId){
+					this._event.participants = returnedEvent.participants;
+				}
+
+				return new HttpResult<Participant[]>(returnedEvent.participants, null);
+
+	    	}
+
+	    	return new HttpResult<Participant[]>(null, [new HttpMessage("Something went wrong with the invite.", HttpMessageType.Error)]);
+
 	    });
 	}
 
