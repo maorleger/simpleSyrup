@@ -86,6 +86,13 @@ export class EditParticipantsComponent implements OnInit {
 		return !UtilityFunctions.isNullUndefinedOrEmpty(this.loadErrorMessage);
 	}
 
+	/*
+	* Indicates if invite button should be disable. This is true when the user has not selected any users to be invited.
+	*/
+	get disableInviteButton(): boolean{
+		return UtilityFunctions.isNullOrUndefined(this._invitedUsers) || this._invitedUsers.length <= 0;
+	}
+
 	constructor(private appBarService: AppBarService, private eventService: EventService, private route: ActivatedRoute, private router: Router, private dialogService: DialogService, private snackBarService: SnackBarService, private userService: UserService) {}
 
 	/****************

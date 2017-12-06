@@ -12,7 +12,7 @@ import { MockActivatedRoute } from '../../../../lib/testing/mockActivatedRoute';
 import { Event, Participant, User } from '../../../../lib/domain/domain.module';
 
 //Service module imports
-import { HttpResult, AppBarService } from '../../../../serviceModule/service.module'
+import { HttpResult, AppBarService, UserService } from '../../../../serviceModule/service.module'
 
 //Feature imports
 import { EventService } from '../../event.service';
@@ -35,7 +35,12 @@ describe('OverviewComponent', () => {
   };
 
   const appBarServiceStub = {
-      updateTitle(title: String) {}
+      updateTitle(title: String) {},
+      updateShowLoader(showLoader: boolean) {}
+  };
+
+  const userServiceStub = {
+    getAllSystemUsers(): Observable<HttpResult<User[]>> { return Observable.of(new HttpResult<User[]>(null)) }
   };
   
   beforeEach(() => {
@@ -43,7 +48,7 @@ describe('OverviewComponent', () => {
     route = new MockActivatedRoute();
     route.paramMap = paramChangeSource.asObservable();
 
-    testComponent = new OverviewComponent(eventServiceStub as EventService, appBarServiceStub as AppBarService, route as ActivatedRoute);
+    testComponent = new OverviewComponent(eventServiceStub as EventService, appBarServiceStub as AppBarService, route as ActivatedRoute, userServiceStub as UserService);
 
   });
 

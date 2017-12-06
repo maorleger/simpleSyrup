@@ -47,7 +47,7 @@
 			</mat-tab-group> -->
 
 			<div class="invite-button-wrapper">
-				<button mat-raised-button color="accent" (click)="onInviteButtonClick($event)">Send Invites</button>
+				<button mat-raised-button color="accent" (click)="onInviteButtonClick($event)" [disabled]="disableInviteButton">Send Invites</button>
 			</div>
 			
 		</div>

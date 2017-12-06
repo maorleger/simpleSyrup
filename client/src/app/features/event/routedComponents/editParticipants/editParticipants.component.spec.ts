@@ -303,6 +303,22 @@ describe('EditParticipantsComponent', () => {
 
 	});
 
+	it('disableInviteButton() works as expected', done => {
+
+		let testUser: User = new User();
+		testUser.firstName = "Test";
+		testUser.lastName = "User";
+
+		expect(testComponent.disableInviteButton).toBeTruthy();
+
+		testComponent.addInvitedUser(testUser);
+
+		expect(testComponent.disableInviteButton).toBeFalsy();		
+
+		done();
+
+	});
+
 	describe("Content error component is displayed when", () =>{
 
 		it("there is an error loading the event name", (done) => {
