@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 //Local imports
 import { BigChipComponent } from './complex/bigChip/bigChip.component';
@@ -19,7 +20,8 @@ import { SnackBarService } from './complex/snackBar/snackBar.service';
 @NgModule({
   imports: [
     CommonModule,
-    MaterialDesignModule
+    MaterialDesignModule,
+    RouterModule
   ],
   declarations: [
     BigChipComponent,

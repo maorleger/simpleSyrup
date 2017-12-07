@@ -38,6 +38,12 @@ export class CardComponent implements OnInit {
 
     @Output()
     expansionToggled: EventEmitter<Event> = new EventEmitter<Event>();
+    
+    /*
+    * URL the add button leads too when clicked
+    */
+    @Input()
+    addLink: string = "#";
 
     /*
     * Indicates if the icon in the title of this card should be displayed or not. This is true if an

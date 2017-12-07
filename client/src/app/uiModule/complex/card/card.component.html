@@ -24,9 +24,11 @@
 				<i class="material-icons md-24">keyboard_arrow_down</i>
 			</button>
 
-			<button mat-icon-button (click)="onAddButtonClicked($event)">
-				<i class="material-icons">add</i>
-			</button>
+			<a [routerLink]="addLink">
+				<button mat-icon-button (click)="onAddButtonClicked($event)">
+					<i class="material-icons">add</i>
+				</button>
+			</a>
 			
 		</div>
 		

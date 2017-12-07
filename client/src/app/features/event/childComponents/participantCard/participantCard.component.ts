@@ -71,13 +71,6 @@ export class ParticipantCardComponent implements OnInit {
   * Public methods
   ****************/
 
-  /*
-  * Handles the click event for the add button.
-  */
-  onAddButtonClicked(evt: Event){
-    this.router.navigate(['./EditParticipants'], { relativeTo: this.route });
-  }
-
   onExpansionToggled(evt: Event){
     this.expanded = !this.expanded;
   }
