@@ -18,7 +18,8 @@ describe('EventService', () => {
 	let testEventService: EventService;
 
 	const httpServiceStub = {
-		getObject<T>(clazz: { new (): T }, url: string): Observable<HttpResult<T>>{ throw new Error();}
+		getObject<T>(clazz: { new (): T }, url: string): Observable<HttpResult<T>>{ throw new Error();},
+		put(url: string, postParams: string): Observable<HttpResult<any>>{ throw new Error(); }
 	}
 
 	const apolloStub = {
@@ -196,6 +197,40 @@ describe('EventService', () => {
 		//Since there wasn't a cached event, Apollo should have been used to reach the api.
 		expect(apolloStub.query).toHaveBeenCalled();
 
+
+	});
+
+	it("inviteUsersToEvent() works as expected", (done) => {
+
+		let userToInvite: User = new User();
+		userToInvite.id = 47;
+
+		let event: Event = new Event();
+		event.id = 12
+		event.participants = [];
+
+		testEventService.Event = event;
+
+		spyOn(httpServiceStub, "put").and.callFake((url: string, postParams: string) => {
+
+			//Ensure the api was called with the right parameters
+			expect(url).toEqual("events/" + event.id);
+			expect(postParams).toEqual("{\"event\":{\"participants_attributes\":[{\"user_id\":" + userToInvite.id + "}]}}");
+
+			return Observable.of(new HttpResult<any>({_body: ("{\"id\":" + event.id + ",\"participants\":[{\"id\":" + event.id + ",\"userId\":" + userToInvite.id + ",\"eventId\":" + event.id + "}]}")})); 
+
+		});
+
+		testEventService.inviteUsersToEvent([userToInvite], event.id).subscribe(() => {
+			expect(httpServiceStub.put).toHaveBeenCalled();
+
+			//After the invite call, the cached event should have been updated with the new participants
+			expect(event.participants).toBeTruthy();
+			expect(event.participants.length).toEqual(1);
+			expect(event.participants[0].userId).toEqual(userToInvite.id);
+
+			done();
+		});
 
 	});
 

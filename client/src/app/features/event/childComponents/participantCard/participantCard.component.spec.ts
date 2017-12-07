@@ -22,24 +22,6 @@ describe('ParticipantCardComponent', () => {
 		testComponent = new ParticipantCardComponent(routerStub as Router, null);    
 	});
 
-	it('Navigates to EditParticipants when add button is clicked', done => {
-
-
-		spyOn(routerStub, 'navigate').and.callFake((commands: any[], extras?: any) => {
-
-			expect(commands.length).toEqual(1);
-			expect(commands[0]).toEqual('./EditParticipants');
-
-			done();
-
-		});
-
-		testComponent.onAddButtonClicked(null);
-
-		expect(routerStub.navigate).toHaveBeenCalled();
-
-	});
-
 	it('showEmptyState property is calculated correctly', () => {
 
 		let participant: Participant = new Participant();

@@ -262,7 +262,7 @@ export class EventService{
 
 		//If there aren't any users to invite, do nothing
 		if(UtilityFunctions.isNullOrUndefined(invitedUsers) || invitedUsers.length <= 0){
-			return;
+			return Observable.of(null);
 		}
 
 	    //Build the request body string
