@@ -1,4 +1,5 @@
 //angular imports
+import { ReflectiveInjector } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 //rxjs imports
@@ -34,7 +35,8 @@ describe('EditParticipantsComponent', () => {
 
 	const eventServiceStub = {
 	    getEventParticipants(eventId: number): Observable<HttpResult<Participant[]>> { throw Error() },
-	    getEventName(eventId: number ): Observable<HttpResult<string>> { throw Error() }
+	    getEventName(eventId: number ): Observable<HttpResult<string>> { throw Error() },
+	    getEvent(eventId: number, useMockData: boolean = false): Observable<HttpResult<Event>>{ throw Error(); }
 	};
 
 	const userServiceStub = {
@@ -50,7 +52,14 @@ describe('EditParticipantsComponent', () => {
 		route = new MockActivatedRoute();
 		route.parent = parentRoute;
 
-		testComponent = new EditParticipantsComponent(appBarServiceStub as AppBarService, eventServiceStub as EventService, route as ActivatedRoute, null, null, null, userServiceStub as UserService);
+		//Set up a fake getEvent that does nothing stuff doesn't blow up; the eventSubPage class uses this
+		spyOn(eventServiceStub, "getEvent").and.callFake(() => {
+			return Observable.of(new HttpResult<Event>(null));
+		});
+
+		var injector = ReflectiveInjector.resolveAndCreate([{provide: EventService, useValue: eventServiceStub}, {provide: AppBarService, useValue: appBarServiceStub}, {provide: ActivatedRoute, useValue: route}]);
+
+		testComponent = new EditParticipantsComponent(injector, null, null, null, userServiceStub as UserService);
 
 	});
 

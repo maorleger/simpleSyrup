@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 //rxjs imports
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
 
 //Library imports

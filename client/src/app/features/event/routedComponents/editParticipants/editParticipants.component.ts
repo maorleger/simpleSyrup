@@ -1,6 +1,6 @@
 //Angular imports
 import { FormControl } from '@angular/forms';
-import { Component, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
 import { MatDialog } from '@angular/material';
@@ -26,6 +26,7 @@ import { DialogComponent, DialogResult, DialogService, SnackBarService } from '.
 
 //Feature imports
 import { EventService } from '../../event.service';
+import { EventSubPageComponent } from '../../eventSubPage/eventSubPage.component';
 import { UserBigChipComponent } from '../../childComponents/userBigChip/userBigChip.component';
 
 import {ENTER} from '@angular/cdk/keycodes';
@@ -40,14 +41,12 @@ const USE_MOCK_DATA = false;
     Transitions.fadeInOutOnLoad
   ]
 })
-export class EditParticipantsComponent implements OnInit {
+export class EditParticipantsComponent extends EventSubPageComponent{
 
 	//Property backing variables
   	private _usersAndParticipants: (User|Participant)[] = []; 
   	private _invitedUsers: User[] = []; 
-  	private _loading: boolean = false;
-  	private _formState: string = "default";
-
+  	
   	private eventId: number;
 	private inviteInput: FormControl = new FormControl();
 	private filteredUsersAndParticipants: (User|Participant)[];
@@ -67,17 +66,6 @@ export class EditParticipantsComponent implements OnInit {
 		return this._invitedUsers;
 	}
 
-	get formState(): string{
-		return this._formState;
-	}
-
-	/*
-	* Indicates if this component is loading data
-	*/
-	get loading(): boolean{
-		return this._loading;
-	}
-
 	get UsersAndParticipants(): (User|Participant)[]{
 		return this._usersAndParticipants;
 	}
@@ -93,13 +81,17 @@ export class EditParticipantsComponent implements OnInit {
 		return UtilityFunctions.isNullOrUndefined(this._invitedUsers) || this._invitedUsers.length <= 0;
 	}
 
-	constructor(private appBarService: AppBarService, private eventService: EventService, private route: ActivatedRoute, private router: Router, private dialogService: DialogService, private snackBarService: SnackBarService, private userService: UserService) {}
+	constructor(injector: Injector, private router: Router, private dialogService: DialogService, private snackBarService: SnackBarService, private userService: UserService) {
+		super(injector);
+	}
 
 	/****************
 	* ng Events
 	****************/
 
 	ngOnInit() {
+
+		super.ngOnInit();
 
 		this.inviteInput.valueChanges.startWith(null).map(val => {
 			return val ? this.filter(val) : this._usersAndParticipants.slice()
@@ -190,7 +182,6 @@ export class EditParticipantsComponent implements OnInit {
 
     }
 
-	//TODO: Implement this method
 	canDeactivate(): Observable<boolean> | boolean {
     
 		//Check for any pending changes. if they exist, ask user what to do and take appropriate action.		
@@ -371,25 +362,6 @@ export class EditParticipantsComponent implements OnInit {
       });
 	
    }
-
-   	/*
-   	* Updates the _loading variable of this component to the given value. Passes that value along 
-   	* to the app bar service so it shows\hides the loader bar.
-   	*/
-	private setLoading(val: boolean){
-		
-		this._loading = val;
-
-		if(this._loading){
-			this._formState = "loading";
-		}
-
-		else{
-			this._formState = "loaded";
-		}
-
-		this.appBarService.updateShowLoader(val);
-	}
 
    	private userAndParticipantArraySortByDisplayName(a, b){
 
