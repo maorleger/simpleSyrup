@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe Types::UserType, type: :model do
-  it "contains all the fields inside user" do
-    expect(SimpleSyrupSchema.types["User"]).to contain_all_fields_for(User)
+RSpec.describe Types::ParticipantType, type: :model do
+  it "contains all the fields inside participant" do
+    expect(SimpleSyrupSchema.types["Participant"]).to contain_all_fields_for(Participant)
   end
 end
