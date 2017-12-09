@@ -17,4 +17,9 @@ FactoryBot.define do
     association :user
     association :event
   end
+
+  factory :google_auth do
+    initialize_with { new(OmniAuth.config.mock_auth[:google]) }
+    skip_create
+  end
 end
