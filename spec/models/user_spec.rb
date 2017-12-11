@@ -29,6 +29,10 @@ RSpec.describe User, type: :model do
           expect(created_user.provider).to eq(auth.provider)
           expect(created_user.uid).to eq(auth.uid)
         end
+
+        it "returns a user" do
+          expect(User.find_or_create_from_auth(auth)).to be_a(User)
+        end
       end
 
       context "when a user already exists" do
@@ -55,6 +59,10 @@ RSpec.describe User, type: :model do
           expect(user.first_name).to eq(auth.first_name)
           expect(user.last_name).to eq(auth.last_name)
           expect(user.photo_url).to eq(auth.photo_url)
+        end
+
+        it "returns a user" do
+          expect(User.find_or_create_from_auth(auth)).to be_a(User)
         end
       end
     end
