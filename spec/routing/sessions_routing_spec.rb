@@ -5,30 +5,25 @@ require "rails_helper"
 RSpec.describe SessionsController, type: :routing do
   describe "routing" do
 
-    it "login routes to google auth" do
-      expect(get: "/login").to route_to("/auth/google_oauth2")
-    end
+    context "redirected routes" do
+      include RSpec::Rails::RequestExampleGroup
+      it "login redirects to google auth" do
+        get "/login"
+        expect(response).to redirect_to("/auth/google_oauth2")
+      end
 
-    it "routes to #show" do
-      expect(get: "/api/v1/events/1").to route_to("api/v1/events#show", id: "1")
-    end
-
-
-    it "routes to #create" do
-      expect(post: "/api/v1/events").to route_to("api/v1/events#create")
-    end
-
-    it "routes to #update via PUT" do
-      expect(put: "/api/v1/events/1").to route_to("api/v1/events#update", id: "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(patch: "/api/v1/events/1").to route_to("api/v1/events#update", id: "1")
+      it "failure redirects to root route" do
+        get "/auth/failure"
+        expect(response).to redirect_to("/")
+      end
     end
 
     it "routes to #destroy" do
-      expect(delete: "/api/v1/events/1").to route_to("api/v1/events#destroy", id: "1")
+      expect(get: "/logout").to route_to("sessions#destroy")
     end
 
+    it "callback routes to #create" do
+      expect(get: "/auth/google/callback").to route_to("sessions#create", provider: "google")
+    end
   end
 end
