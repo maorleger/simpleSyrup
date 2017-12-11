@@ -31,6 +31,12 @@ export class UserBigChipComponent implements OnInit{
   	@Output()
   	userBigChipClicked: EventEmitter<User> = new EventEmitter<User>();
 
+	/*
+	* Event that is emitted when the picture this component is displaying is done loading.
+	*/
+	@Output()
+	pictureLoaded: EventEmitter<string> = new EventEmitter<string>();
+
   	/*
   	* Indicates if this component is selected. If so, a check box icon appears in place
   	* of the profile\initials picture.
@@ -70,16 +76,20 @@ export class UserBigChipComponent implements OnInit{
 
 	ngOnInit() {}
 
-	  /****************
-	  * Public methods
-	  ****************/
+	/****************
+	* Public methods
+	****************/
 
-	  onUserBigChipClick(event: Event){
-	    this.userBigChipClicked.emit(this._user);
-	  }
+	onUserBigChipClick(event: Event){
+		this.userBigChipClicked.emit(this._user);
+	}
 
-	  /****************
-	  * Private methods
-	  ****************/
+	onPictureLoad(event: string){
+		this.pictureLoaded.emit(event);	
+	}
+
+	/****************
+	* Private methods
+	****************/
 
 }

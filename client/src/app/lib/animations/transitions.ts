@@ -20,6 +20,13 @@ export class Transitions {
       ])
 	]);
 
+  static imageLoad = trigger('imageLoad', [
+    transition(':enter', [
+      style({ opacity: 0, filter: "brightness(0%) saturate(0%)"  }),
+      Animations.animateToFullOpactiySaturationBrightness,
+    ])
+  ])
+
   /*
   * Transition for fading in\out when an object enters or leaves.
   */

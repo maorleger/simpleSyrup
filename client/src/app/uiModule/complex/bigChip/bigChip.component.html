@@ -28,3 +28,6 @@
   </div>
 
 </div>
+
+<!-- This is for some trickery: since it's impossible for this component to know when the real picture is loaded because it's set with the 'background-image', this never-seen duplicate is used to know when the picture is loaded. Any sensible brower will only load the image once and then use the cached data. -->
+<img src="{{pictureUrl}}" (load)="onPictureLoad($event)" class="no-display" >

@@ -17,7 +17,7 @@ import { UtilityFunctions } from '../../../lib/utilityFunctions';
       })),
       transition('active => inactive', animate('250ms ease-in-out')),
       transition('inactive => active', animate('250ms ease-in-out'))
-    ])  
+    ])
   ]
 })
 export class BigChipComponent implements OnInit {
@@ -28,6 +28,7 @@ export class BigChipComponent implements OnInit {
   private _showPicture: boolean;
   private _infoText: string;
   private _pictureUrl: string;
+  private _isPictureLoaded: boolean = false;
   private _pictureReplacementChars: string;
   private _selected: boolean = false;
 
@@ -38,8 +39,11 @@ export class BigChipComponent implements OnInit {
   @Output()
   bigChipClicked: EventEmitter<Event> = new EventEmitter<Event>();
 
+  @Output()
+  pictureLoaded: EventEmitter<string> = new EventEmitter<string>();
+
   @Input()
-  selectable: boolean = false;
+  selectable: boolean = true;
 
   get infoText(): string{
     return this._infoText;
@@ -50,6 +54,13 @@ export class BigChipComponent implements OnInit {
 
     this._infoText = val;
     
+  }
+
+  /*
+  * Indicates of the picture shown on this component has completed loading.
+  */
+  get isPictureLoaded(): boolean{
+    return this._isPictureLoaded;
   }
 
   get pictureUrl(): string{
@@ -111,6 +122,9 @@ export class BigChipComponent implements OnInit {
   * Public methods
   ****************/
 
+  /*
+  * Event handler for when any part of this component is clicked.
+  */
   onBigChipClicked(event: Event){
 
     if(this.selectable){
@@ -121,6 +135,16 @@ export class BigChipComponent implements OnInit {
       this.bigChipClicked.emit(event);
 
     }
+
+  }
+
+  /*
+  * Event handler for when the picture this component is showing is loaded.
+  */
+  onPictureLoad(event: Event){
+
+    this._isPictureLoaded = true;
+    this.pictureLoaded.emit(this._pictureUrl);
 
   }
 

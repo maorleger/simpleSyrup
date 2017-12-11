@@ -1,6 +1,6 @@
 <div class="user-big-chip-wrapper" (click)="onUserBigChipClick($event)">
 
-  <ssBigChip #ssBigChip [infoText]="user.displayName" [pictureReplacementChars]="user.initials" [pictureUrl]="user.photoUrl" [selectable]="true" [selected]="selected">
+  <ssBigChip #ssBigChip [infoText]="user.displayName" [pictureReplacementChars]="user.initials" [pictureUrl]="user.photoUrl" [selectable]="true" [selected]="selected" (pictureLoaded)="onPictureLoad($event)">
   </ssBigChip>
 
 </div>

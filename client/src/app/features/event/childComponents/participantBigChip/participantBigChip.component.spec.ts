@@ -29,4 +29,14 @@ describe('ParticipantBigChipComponent', () => {
 
   });
 
+  it("pictureLoaded event is emitted when picture is done loading", (done) => {
+
+    testComponent.pictureLoaded.subscribe(() => {
+      done();
+    });
+
+    testComponent.onPictureLoad(null);
+
+  });
+
 });

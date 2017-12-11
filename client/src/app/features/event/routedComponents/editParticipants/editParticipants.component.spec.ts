@@ -168,6 +168,58 @@ describe('EditParticipantsComponent', () => {
 
 	});
 
+	it("loading is not updated until all pictures are loaded", done => {
+
+		let testUser1: User = new User();
+		testUser1.firstName = "Test";
+		testUser1.lastName = "User";
+		testUser1.id = 1;
+		testUser1.photoUrl = "somePhoto.png";
+
+		//Component should be initialized with loading = false
+		expect(testComponent.loading).toBeFalsy();
+
+		spyOn(eventServiceStub, "getEventParticipants").and.callFake((eventId) => {
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getEventParticipents
+			return Observable.of(new HttpResult<Participant[]>(null));
+
+		});
+
+		spyOn(eventServiceStub, "getEventName").and.callFake((eventId) => {
+
+			//Need to return an observable here since the EditParticipantsComponent component subscribes to getEventParticipents
+			return Observable.of(new HttpResult<string>(null));
+
+		});
+		
+		spyOn(userServiceStub, "getAllSystemUsers").and.callFake(() => {
+			return Observable.of(new HttpResult<User[]>([testUser1]));
+		});
+
+		//This spy doesn't need to do anything; just creating it so we can keep track of how often it's called
+		spyOn(appBarServiceStub, "updateShowLoader").and.callFake((showLoader: boolean) => { });
+
+		testComponent.ngOnInit();
+
+	    //Emit parameter change
+	    paramChangeSource.next({eventId: 10, get(){ return 10; }});
+
+	    //Since one of the users has a photoUrl, the component should still indicate it's loading
+		expect(appBarServiceStub.updateShowLoader).toHaveBeenCalledTimes(1);
+		expect(testComponent.loading).toBeTruthy();
+
+		//Indicate the photo for the test user has completed loading
+		testComponent.onPictureLoaded(testUser1.photoUrl);
+
+		//Now that the one picture has completed loading, the loading flag should be false
+		expect(appBarServiceStub.updateShowLoader).toHaveBeenCalledTimes(2);
+		expect(testComponent.loading).toBeFalsy();		
+
+		done();
+
+	});
+
 	it("Calls the app bar service upon receiving the event name", done => {
 
 		let eventName = "Ace's birthday";

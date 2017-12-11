@@ -62,6 +62,15 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .picture-placeholder{
+    background-color: mat-color($primary, 1);
+    position: absolute;
+    z-index: 0;
+    top: 0;
   }
 
   .initials-pic span{
@@ -124,25 +133,19 @@
     background-color: #9E9E9E;
   }
 
-}
+  .flip-box{
+    transform-style: preserve-3d;
+  }
 
+  .flip-box-back{
+    transform: rotateY(179.9deg);
+  }
 
+  .flip-box-side{
+    position: absolute;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+  }
 
-
-
-
-
-.flip-box{
-  transform-style: preserve-3d;
-}
-
-.flip-box-back{
-  transform: rotateY(179.9deg);
-}
-
-.flip-box-side{
-  position: absolute;
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
 }

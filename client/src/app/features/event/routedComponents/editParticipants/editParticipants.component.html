@@ -1,4 +1,4 @@
-<ssFormPage [@fadeInOutOnLoad]="formState">
+<ssFormPage [@fadeInOutOnLoad]="formState" [style.display]="loading ? 'none' : 'block' ">
 
 	<div inject-page-content>
 
@@ -25,9 +25,9 @@
 
 						<div *ngFor="let person of filteredUsersAndParticipants" class="col-lg-4 col-sm-6 col-12 participant-col">
 
-							<ssUserBigChip *ngIf="isUserObject(person)" #userBigChip [user]="person" [selected]="isUserInvited(person)" (userBigChipClicked)="onUserBigChipClicked($event)"></ssUserBigChip>
+							<ssUserBigChip *ngIf="isUserObject(person)" #userBigChip [user]="person" [selected]="isUserInvited(person)" (userBigChipClicked)="onUserBigChipClicked($event)" (pictureLoaded)="onPictureLoaded($event)"></ssUserBigChip>
 
-							<ssParticipantBigChip *ngIf="isParticipantObject(person)" [participant]="person" [selected]="true"></ssParticipantBigChip>
+							<ssParticipantBigChip *ngIf="isParticipantObject(person)" [participant]="person" [selected]="true" (pictureLoaded)="onPictureLoaded($event)"></ssParticipantBigChip>
 							
 						</div>
 

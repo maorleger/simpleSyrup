@@ -9,3 +9,9 @@
 	</div>
 
 </div>
+
+<!-- These user chips are never shown. They are placed here so the user pictures are pre-emptively loaded. Since most browsers will cached the picture, when the user goes to the editParticipants page
+they will already be loded, thus making the page appear to load instantly. -->
+<div class="no-display">
+	<ssUserBigChip *ngFor="let person of systemUsers" [user]="person"></ssUserBigChip>
+</div>

@@ -119,6 +119,37 @@ describe('OverviewComponent', () => {
 
   });
 
+  it("System users are retrieved when component is initalized", (done) => {
+
+    let testUser1: User = new User();
+    testUser1.firstName = "Test";
+    testUser1.lastName = "User";
+    testUser1.id = 1;
+
+    let testUser2: User = new User();
+    testUser2.firstName = "Test";
+    testUser2.lastName = "User2";
+    testUser2.id = 2;
+
+    spyOn(userServiceStub, "getAllSystemUsers").and.callFake(() => {
+
+      //Return mock user data
+      return Observable.of(new HttpResult<User[]>([testUser1, testUser2]));
+
+    });
+
+    //Need to call onInit to wire up subscriptions
+    testComponent.ngOnInit();
+
+    expect(userServiceStub.getAllSystemUsers).toHaveBeenCalled();
+    expect(testComponent.systemUsers.length).toEqual(2);
+    expect(testComponent.systemUsers[0]).toEqual(testUser1);
+    expect(testComponent.systemUsers[1]).toEqual(testUser2);
+
+    done();
+
+  });
+
   describe("EventParticipants property", () => {
 
       it('Returns null if participants do not exist', () => {

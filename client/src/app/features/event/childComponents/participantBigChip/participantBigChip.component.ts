@@ -17,6 +17,13 @@ export class ParticipantBigChipComponent implements OnInit {
   /***********************************
   * Properties, Inputs, and Outputs
   ***********************************/
+
+  /*
+  * Event that is emitted when the picture this component is displaying is done loading.
+  */
+  @Output()
+  pictureLoaded: EventEmitter<string> = new EventEmitter<string>();
+
   
   /*
   * Indicates if this component is selected. If so, a check box icon appears in place
@@ -76,6 +83,10 @@ export class ParticipantBigChipComponent implements OnInit {
   /****************
   * Public methods
   ****************/
+
+  onPictureLoad(event: string){
+    this.pictureLoaded.emit(event);
+  }
 
   /****************
   * Private methods

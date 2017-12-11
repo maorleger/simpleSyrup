@@ -1,6 +1,6 @@
 <div class="participant-big-chip-wrapper">
 
-  <ssBigChip [infoText]="participant.user.displayName" [pictureReplacementChars]="participant.user.initials" [pictureUrl]="participant.user.photoUrl" [selected]="selected">
+  <ssBigChip [infoText]="participant.user.displayName" [pictureReplacementChars]="participant.user.initials" [pictureUrl]="participant.user.photoUrl" [selected]="selected" [selectable]="false" (pictureLoaded)="onPictureLoad($event)">
     <span inject-sub-info class="info-status label {{statusClass}}">{{status}}</span>    
   </ssBigChip>
 

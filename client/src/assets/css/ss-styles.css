@@ -12,6 +12,10 @@
     border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
+.no-display{
+	display: none;
+}
+
 button{
 	outline-color: transparent !important;
 }

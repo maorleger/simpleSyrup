@@ -51,6 +51,7 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 	private inviteInput: FormControl = new FormControl();
 	private filteredUsersAndParticipants: (User|Participant)[];
 	private loadErrorMessage: string;
+	private picturesToBeLoaded: string[] = [];
 
 	@ViewChildren("userBigChip")
 	private userBigChipList: QueryList<UserBigChipComponent> = new QueryList<UserBigChipComponent>();
@@ -102,6 +103,9 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 		//Whenever the id of the event changes, need to grab several items: the list of event participants, list of system users, and the event name
 		this.route.parent.paramMap.switchMap((params: ParamMap) => {
 
+			//This array needs to start empty for the loading process
+			this.picturesToBeLoaded = [];
+
 			//Save the event id
 			this.eventId = +params.get('eventId');
 
@@ -151,6 +155,17 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 					this.appBarService.updateTitle(zippedResults.getNameResult.value);
 				}
 
+				//Keep track of all the photo that will be loaded; so this component can know when they are all done
+				this.filteredUsersAndParticipants.forEach(person => {
+					
+					let photoUrl: string = this.getPhotoUrl(person)
+
+					if(!UtilityFunctions.isNullUndefinedOrEmpty(photoUrl)){
+						this.picturesToBeLoaded.push(photoUrl);
+					}
+
+				});
+
 			}
 
 			else{
@@ -160,8 +175,12 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 
 			}
 
-			this.setLoading(false);
-			
+			//If there aren't any pictures that need to be loaded, then loading is completed. Otherwise, wait on them to load
+			//before chainging the loading flag
+			if(this.picturesToBeLoaded.length <= 0){
+				this.setLoading(false);
+			}
+
 		});
 
 	}
@@ -207,6 +226,23 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 		}
     
 		return true;
+
+	}
+
+	/*
+	* Event handler for when the picture on the UserBigChip and ParticipantBigChip components is done loading.
+	* It rthe photo that just finished loading was the loast photo to complete it's load, the loading flag for
+	* this component is updated to 'false.'
+	*/
+	onPictureLoaded(pictureUrl: string){
+
+		//Remove the photo that finished loading from the tracking array
+		this.picturesToBeLoaded.splice(this.picturesToBeLoaded.indexOf(pictureUrl), 1);
+
+		//If photo that just finished was the last one, update the loading flag to false
+		if(this.picturesToBeLoaded.length <= 0){
+			this.setLoading(false);
+		}
 
 	}
 
@@ -334,10 +370,6 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 	* Private methods
 	****************/
 
-	private showParticipantSection(particiants: Participant[]): boolean{
-		return !UtilityFunctions.isNullOrUndefined(particiants) && particiants.length > 0;
-	}
-
 	private filter(val: string): (User|Participant)[] {
 
       return this._usersAndParticipants.filter(option => {
@@ -362,6 +394,26 @@ export class EditParticipantsComponent extends EventSubPageComponent{
       });
 	
    }
+
+   /*
+   * Given a User or Participant object, returns the photoUrl. If an object of another type is given,
+   * this method throws an error.
+   */
+	private getPhotoUrl(person: User | Participant): string{
+
+		if(this.isUserObject(person)){
+			return (<User>person).photoUrl;
+		}
+
+		else if(this.isParticipantObject(person)){
+			return (<Participant>person).user.photoUrl;
+		}
+
+		else{
+			throw new Error("Unexpected object type in _usersAndParticipants");
+		}
+
+	}
 
    	private userAndParticipantArraySortByDisplayName(a, b){
 

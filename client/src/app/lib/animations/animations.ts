@@ -13,5 +13,7 @@ export class Animations {
 	static animateToFullOpacity = animate(Animations.durationShort, style({ opacity: 1 }));
 
 	static animateToZeroOpacity = animate(Animations.durationShort, style({ opacity: 0 }));
+
+	static animateToFullOpactiySaturationBrightness = animate(Animations.durationShort, style({ opacity: 1, filter: "brightness(100%) saturate(100%)" }));
 	
 }
