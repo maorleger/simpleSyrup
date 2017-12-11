@@ -8,6 +8,8 @@ Types::UserType = GraphQL::ObjectType.define do
   field :lastName, types.String, property: :last_name
   field :email, types.String
   field :photoUrl, types.String, property: :photo_url
+  field :uid, types.String
+  field :provider, types.String
   field :createdAt, types.String, property: :created_at
   field :updatedAt, types.String, property: :updated_at
 end
