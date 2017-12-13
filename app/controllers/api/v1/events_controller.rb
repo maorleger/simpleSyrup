@@ -23,6 +23,7 @@ module Api
 
       # PATCH/PUT /events/1
       def update
+        validate_participants
         if @event.update(event_params)
           render :show
         else
@@ -36,6 +37,13 @@ module Api
       end
 
       private
+
+        def validate_participants
+          (event_params["participants_attributes"] || []).map do |participant_attrs|
+            User.find(participant_attrs["user_id"]) if participant_attrs["user_id"]
+            @event.participants.find(participant_attrs["id"]) if participant_attrs["id"]
+          end
+        end
 
         def set_event
           @event = Event.find(params[:id])

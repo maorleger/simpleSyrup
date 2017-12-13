@@ -112,6 +112,20 @@ RSpec.describe Api::V1::EventsController, type: :controller do
           end.to change { Participant.count }.by(1)
         end
 
+        describe "when the user is not found" do
+          it "returns a 404" do
+            put :update, params: {
+              id: event.to_param,
+              event: {
+                participants_attributes: [
+                  { user_id: 123456 }
+                ]
+              }
+            }
+            expect(response).to have_http_status(404)
+          end
+        end
+
         it "returns the new participant data" do
           put :update, params: { id: event.to_param, event: { participants_attributes: users_param } }
           expect(json["participants"].map { |p| p["userId"] }.sort).to eq(users_param.map { |up| up[:user_id] })
@@ -169,6 +183,18 @@ RSpec.describe Api::V1::EventsController, type: :controller do
                 }
               }
             end.to change { Participant.count }.by(-1)
+          end
+
+          context "when the participant id doesnt exist" do
+            it "returns a 404" do
+              put :update, params: {
+                id: event.to_param,
+                event: {
+                  participants_attributes: [{ id: 123455 }]
+                }
+              }
+              expect(response).to have_http_status(404)
+            end
           end
         end
       end
