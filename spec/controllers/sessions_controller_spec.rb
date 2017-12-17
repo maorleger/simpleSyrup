@@ -21,6 +21,7 @@ RSpec.describe SessionsController, type: :controller do
       expect(User).to receive(:find_or_create_from_auth) do |received_auth|
         expect(received_auth.uid).to eq(auth.uid)
         expect(received_auth.provider).to eq(auth.provider)
+        user
       end
       do_request
     end
@@ -37,7 +38,24 @@ RSpec.describe SessionsController, type: :controller do
 
     it "redirects to home#index" do
       do_request
-      expect(response).to redirect_to("home#index")
-j   end
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "#logout" do
+    let(:user) { create(:user) }
+    before(:each) do
+      session[:user_id] = user.id
+    end
+
+    it "clears out the user_id" do
+      get :destroy
+      expect(session[:user_id]).to be_nil
+    end
+
+    it "redirects to the root path" do
+      get :destroy
+      expect(response).to redirect_to(root_path)
+    end
   end
 end
