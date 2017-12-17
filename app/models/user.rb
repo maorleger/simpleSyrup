@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   class << self
     def find_or_create_from_auth(auth)
-      user = where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+      where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
         user.attributes = auth.to_h
         user.save!
       end
