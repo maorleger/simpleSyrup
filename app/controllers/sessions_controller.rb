@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  def index; end
+
   def create
     @user = User.find_or_create_from_auth(auth)
     session[:user_id] = @user.id

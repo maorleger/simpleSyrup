@@ -58,4 +58,11 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe "#index" do
+    it "has a route" do
+      get :index
+      expect(response).to have_http_status(200)
+    end
+  end
 end
