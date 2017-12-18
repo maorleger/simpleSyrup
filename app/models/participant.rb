@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Participant < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
   belongs_to :event
   delegate :first_name, :last_name, :email, :photo_url, to: :user, allow_nil: true
 

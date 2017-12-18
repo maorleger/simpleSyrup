@@ -5,11 +5,7 @@ require "rails_helper"
 RSpec.describe Participant, type: :model do
   specify { is_expected.to belong_to(:event) }
   specify { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:event_id) }
-
-  it "belongs to user and is optional" do
-    is_expected.to belong_to(:user)
-    expect(build_stubbed(:participant, user: nil).valid?).to eq(true)
-  end
+  specify { is_expected.to belong_to(:user) }
 
   describe "#status" do
     specify do
