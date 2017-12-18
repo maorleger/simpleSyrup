@@ -6,19 +6,7 @@ import { UtilityFunctions } from '../../../lib/utilityFunctions';
 @Component({
   selector: 'ssBigChip',
   templateUrl: './bigChip.component.html',
-  styleUrls: ['./bigChip.component.scss'],
-  animations: [
-    trigger('flipState', [
-      state('active', style({
-        transform: 'rotateY(179.9deg)'
-      })),
-      state('inactive', style({
-        transform: 'rotateY(0)'
-      })),
-      transition('active => inactive', animate('250ms ease-in-out')),
-      transition('inactive => active', animate('250ms ease-in-out'))
-    ])
-  ]
+  styleUrls: ['./bigChip.component.scss']
 })
 export class BigChipComponent implements OnInit {
 
