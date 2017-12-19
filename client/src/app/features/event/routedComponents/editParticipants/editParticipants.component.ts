@@ -434,10 +434,10 @@ export class EditParticipantsComponent extends EventSubPageComponent{
 			userB = (b as Participant).user;
 		}
 
-		if (userA.displayName < userB.displayName)
+		if (userA.displayName.toLowerCase() < userB.displayName.toLowerCase())
 			return -1;
 
-		if (userA.displayName > userB.displayName)
+		if (userA.displayName.toLowerCase() > userB.displayName.toLowerCase())
 			return 1;
 
 		return 0;

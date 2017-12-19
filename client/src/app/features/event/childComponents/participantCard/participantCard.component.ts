@@ -43,7 +43,20 @@ export class ParticipantCardComponent implements OnInit {
   @Input()
   set participants(val: Participant[]) {
   
-    this._participants = val;
+    this._participants = val.filter(participant => participant.status.toLowerCase() !== "declined");
+
+    //Sort the array by status; since the desired order is Attending, Tentative, Invited
+    this._participants.sort(function(a, b){
+
+      if (a.user.displayName.toLowerCase() < b.user.displayName.toLowerCase())
+        return -1;
+
+      if (a.user.displayName.toLowerCase() > b.user.displayName.toLowerCase())
+        return 1;
+
+      return 0;
+
+    });
 
     //Determine if the overflow button should be shown
     this._showOverflowButton = !UtilityFunctions.isNullOrUndefined(this._participants) && this._participants.length > this.unExpandedMaxParticipants;
