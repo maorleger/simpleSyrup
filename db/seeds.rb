@@ -38,7 +38,7 @@ rl = User.create!(
 
 Participant.create!(
   event: event,
-  status: "accepted",
+  status: "attending",
   user: ml,
 )
 
