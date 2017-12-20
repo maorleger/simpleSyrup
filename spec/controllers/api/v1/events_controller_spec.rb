@@ -97,7 +97,7 @@ RSpec.describe Api::V1::EventsController, type: :controller do
 
       describe "with participants" do
         let(:users) { create_list(:user, 3) }
-        let(:users_param) { users.map { |user| { user_id: user.id, status: "accepted" } } }
+        let(:users_param) { users.map { |user| { user_id: user.id, status: "attending" } } }
 
         it "can add a single participant" do
           expect do
@@ -139,7 +139,7 @@ RSpec.describe Api::V1::EventsController, type: :controller do
 
         it "correctly updates the status" do
           put :update, params: { id: event.to_param, event: { participants_attributes: users_param } }
-          expect(event.participants.pluck(:status)).to eq(users.map { "accepted" })
+          expect(event.participants.pluck(:status)).to eq(users.map { "attending" })
         end
 
         it "can handle skipped status" do

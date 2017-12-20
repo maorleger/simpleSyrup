@@ -5,7 +5,7 @@ class Participant < ApplicationRecord
   belongs_to :event
   delegate :first_name, :last_name, :email, :photo_url, to: :user, allow_nil: true
 
-  enum status: { invited: 0, tentative: 1, accepted: 2, declined: 3 }
+  enum status: { invited: 0, tentative: 1, attending: 2, declined: 3 }
 
   scope :possible_participants, -> {
     left_outer_joins(:user)
