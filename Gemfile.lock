@@ -176,6 +176,7 @@ DEPENDENCIES
   foreman
   graphql
   jbuilder (~> 2.5)
+  nokogiri (~> 1.8.1)
   pg (~> 0.18)
   pry
   pry-byebug
