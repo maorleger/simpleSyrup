@@ -40,6 +40,12 @@ RSpec.describe SessionsController, type: :controller do
       do_request
       expect(response).to redirect_to(root_path)
     end
+
+    it "expires the session" do
+      session[:old_user_id] = 123
+      do_request
+      expect(session[:old_user_id]).to be_nil
+    end
   end
 
   describe "#logout" do

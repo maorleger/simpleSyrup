@@ -38,6 +38,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    angular_rails_csrf (2.1.1)
+      railties (>= 3, < 5.2)
     arel (8.0.0)
     builder (3.2.3)
     byebug (9.1.0)
@@ -192,6 +194,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular_rails_csrf
   byebug
   dotenv-rails
   factory_bot_rails
@@ -199,6 +202,7 @@ DEPENDENCIES
   foreman
   graphql
   jbuilder (~> 2.5)
+  jwt
   nokogiri (~> 1.8.1)
   omniauth-google-oauth2
   pg (~> 0.18)
