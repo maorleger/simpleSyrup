@@ -1,3 +1,33 @@
-<h1>something here</h1>
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="google-signin-client_id" content="170454626942-fon15mv7pv91edv8ttnm9uptsdga8ri9.apps.googleusercontent.com">
+      <title>Simple Syrup</title>
+      <link rel="stylesheet" href="/assets/css/login.css">
+      <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+   </head>
+   <body>
+      <div class="content">
+         <h2>Simple Syrup</h2>
+         <h3>The easiest way to organize fun</h3>
+         <%= link_to login_path do %>
 
-<%= link_to "Login via Google", login_path %>
+             <div class="sign-in-button">
+               <div class="abcRioButtonBlue">
+                 <div class="abcRioButtonContentWrapper">
+                   <div class="abcRioButtonIcon" style="padding:8px">
+                     <div style="width:18px;height:18px;" class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18">
+                       <img src="/assets/img/google_logo.svg"></img>
+                     </div>
+                   </div>
+                   <span style="font-size:13px;line-height:34px;" class="abcRioButtonContents">
+                     <span id="not_signed_inh8wvhlje1ee8">Sign in</span>
+                   </span>
+                 </div>
+               </div>
+             </div>
+          <% end %>
+      </div>
+   </body>
+</html>
