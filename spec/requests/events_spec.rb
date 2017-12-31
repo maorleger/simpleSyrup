@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "json_web_token"
 
 RSpec.describe "Events", type: :request do
   let!(:participant) { create(:participant) }
+  let(:authenticated_user) { create(:user) }
+
+  before(:each) do
+    allow(JsonWebToken).to receive(:decode).and_return(user_id: authenticated_user.id)
+  end
+
   describe "GET /events" do
     before do
       get api_v1_events_path
@@ -12,6 +19,7 @@ RSpec.describe "Events", type: :request do
     def event
       JSON.load(response.body).first
     end
+
 
     it "returns the event details" do
       expect(response).to have_http_status(200)

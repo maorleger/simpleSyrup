@@ -36,6 +36,11 @@ RSpec.describe SessionsController, type: :controller do
       expect(session[:user_id]).to eq(user.id)
     end
 
+    it "sets a jwt token as a cookie" do
+      do_request
+      expect(cookies[:jwt]).not_to be_nil
+    end
+
     it "redirects to home#index" do
       do_request
       expect(response).to redirect_to(root_path)

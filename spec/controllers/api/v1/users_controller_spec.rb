@@ -7,6 +7,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let!(:users) { create_list(:user, 4) }
   let(:json) { JSON.parse(response.body) }
 
+  before(:each) do
+    allow(JsonWebToken).to receive(:decode).and_return(user_id: users.first.id)
+  end
+
   describe "GET #index" do
     it "returns all users as json" do
       get :index

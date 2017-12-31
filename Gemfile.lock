@@ -202,7 +202,6 @@ DEPENDENCIES
   foreman
   graphql
   jbuilder (~> 2.5)
-  jwt
   nokogiri (~> 1.8.1)
   omniauth-google-oauth2
   pg (~> 0.18)

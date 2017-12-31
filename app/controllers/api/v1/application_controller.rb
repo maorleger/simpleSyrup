@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json_web_token"
+
 module Api
   module V1
     class ApplicationController < ActionController::API
@@ -21,7 +23,12 @@ module Api
         end
 
         def current_user
-          @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+          user_id = token_user_id
+          @current_user ||= User.find_by_id(user_id) if user_id
+        end
+
+        def token_user_id
+          (JsonWebToken.decode(request.cookies["jwt"]) || {})[:user_id]
         end
 
         def set_default_response_format
