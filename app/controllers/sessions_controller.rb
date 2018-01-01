@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "json_web_token"
-
 class SessionsController < ApplicationController
   def index; end
 

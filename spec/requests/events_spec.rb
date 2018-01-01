@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "json_web_token"
 
 RSpec.describe "Events", type: :request do
   let!(:participant) { create(:participant) }
