@@ -41,6 +41,12 @@ RSpec.describe SessionsController, type: :controller do
       expect(cookies[:jwt]).not_to be_nil
     end
 
+    it "has a good JWT with expiration" do
+      do_request
+      jwt = JsonWebToken.decode(cookies[:jwt])
+      expect(jwt["user_id"]).to eq(user.id)
+    end
+
     it "redirects to home#index" do
       do_request
       expect(response).to redirect_to(root_path)

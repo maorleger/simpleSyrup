@@ -22,11 +22,21 @@ module Api
 
         def current_user
           user_id = token_user_id
-          @current_user ||= User.find_by_id(user_id) if user_id
+          expiration = token_exp
+          @current_user ||= User.find_by_id(user_id) if user_id && expiration > Time.zone.now
+        end
+
+        def token_exp
+          exp = token[:exp] || 0
+          Time.zone.at(exp)
         end
 
         def token_user_id
-          (JsonWebToken.decode(request.cookies["jwt"]) || {})[:user_id]
+          token[:user_id]
+        end
+
+        def token
+          JsonWebToken.decode(request.cookies["jwt"]) || {}
         end
 
         def set_default_response_format

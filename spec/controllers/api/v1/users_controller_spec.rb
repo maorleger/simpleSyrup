@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:json) { JSON.parse(response.body) }
 
   before(:each) do
-    allow(JsonWebToken).to receive(:decode).and_return(user_id: users.first.id)
+    request.cookies[:jwt] = JsonWebToken.encode(user_id: users.first.id)
   end
 
   describe "GET #index" do

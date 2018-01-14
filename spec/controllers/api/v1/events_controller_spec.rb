@@ -25,7 +25,7 @@ RSpec.describe Api::V1::EventsController, type: :controller do
   let(:authenticated_user) { create(:user) }
 
   before(:each) do
-    allow(JsonWebToken).to receive(:decode).and_return(user_id: authenticated_user.id)
+    request.cookies[:jwt] = JsonWebToken.encode(user_id: authenticated_user.id)
   end
 
   describe "GET #index" do
