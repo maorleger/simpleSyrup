@@ -57,6 +57,7 @@ RSpec.describe SessionsController, type: :controller do
     let(:user) { create(:user) }
     before(:each) do
       session[:user_id] = user.id
+      cookies[:jwt] = "foobar"
     end
 
     it "clears out the user_id" do
@@ -67,6 +68,11 @@ RSpec.describe SessionsController, type: :controller do
     it "redirects to the root path" do
       get :destroy
       expect(response).to redirect_to(sessions_path)
+    end
+
+    it "removes the jwt cookie" do
+      get :destroy
+      expect(cookies[:jwt]).to be_nil
     end
   end
 

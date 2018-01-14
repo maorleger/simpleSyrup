@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
   def destroy
     @current_user = nil
     session[:user_id] = nil
+    cookies.delete(:jwt)
     reset_session
     redirect_to sessions_path
   end
