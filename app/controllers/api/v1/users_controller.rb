@@ -2,8 +2,9 @@
 
 module Api
   module V1
-    class UsersController < ApplicationController
+    class UsersController < Api::V1::ApplicationController
       before_action :set_user, only: [:show, :update, :destroy]
+      before_action :authenticate
 
       def index
         @users = User.all

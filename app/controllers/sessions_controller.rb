@@ -5,12 +5,17 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_or_create_from_auth(auth)
+    reset_session
     session[:user_id] = @user.id
+    cookies[:jwt] = JsonWebToken.encode(user_id: @user.id)
     redirect_to root_path
   end
 
   def destroy
+    @current_user = nil
     session[:user_id] = nil
+    cookies.delete(:jwt)
+    reset_session
     redirect_to sessions_path
   end
 

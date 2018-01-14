@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class GraphqlController < ApplicationController
+    class GraphqlController < Api::V1::ApplicationController
       def execute
         variables = ensure_hash(params[:variables])
         query = params[:query]

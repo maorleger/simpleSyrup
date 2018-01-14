@@ -6,6 +6,10 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
   let(:event) { create(:event) }
   let(:user) { create(:user) }
 
+  before(:each) do
+    request.cookies[:jwt] = JsonWebToken.encode(user_id: user.id)
+  end
+
   describe "POST #create" do
     let(:post_params) do
       {

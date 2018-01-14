@@ -36,9 +36,26 @@ RSpec.describe SessionsController, type: :controller do
       expect(session[:user_id]).to eq(user.id)
     end
 
+    it "sets a jwt token as a cookie" do
+      do_request
+      expect(cookies[:jwt]).not_to be_nil
+    end
+
+    it "has a good JWT with expiration" do
+      do_request
+      jwt = JsonWebToken.decode(cookies[:jwt])
+      expect(jwt["user_id"]).to eq(user.id)
+    end
+
     it "redirects to home#index" do
       do_request
       expect(response).to redirect_to(root_path)
+    end
+
+    it "expires the session" do
+      session[:old_user_id] = 123
+      do_request
+      expect(session[:old_user_id]).to be_nil
     end
   end
 
@@ -46,6 +63,7 @@ RSpec.describe SessionsController, type: :controller do
     let(:user) { create(:user) }
     before(:each) do
       session[:user_id] = user.id
+      cookies[:jwt] = "foobar"
     end
 
     it "clears out the user_id" do
@@ -56,6 +74,11 @@ RSpec.describe SessionsController, type: :controller do
     it "redirects to the root path" do
       get :destroy
       expect(response).to redirect_to(sessions_path)
+    end
+
+    it "removes the jwt cookie" do
+      get :destroy
+      expect(cookies[:jwt]).to be_nil
     end
   end
 

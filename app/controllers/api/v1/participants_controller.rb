@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class ParticipantsController < ApplicationController
+    class ParticipantsController < Api::V1::ApplicationController
       def create
         status = :conflict
         @participant = Participant.find_or_create_by!(participant_params.except(:status)) do |participant|

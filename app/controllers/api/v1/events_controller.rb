@@ -2,8 +2,9 @@
 
 module Api
   module V1
-    class EventsController < ApplicationController
+    class EventsController < Api::V1::ApplicationController
       before_action :set_event, only: [:show, :update, :destroy]
+      before_action :authenticate
 
       def index
         @events = Event.all
