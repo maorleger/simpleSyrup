@@ -18,3 +18,7 @@
 /public/packs-test
 /node_modules
 .env
+client/login_page.zip
+client/login_page/css/login.css
+client/login_page/img/union-station.jpg
+client/login_page/login.html
