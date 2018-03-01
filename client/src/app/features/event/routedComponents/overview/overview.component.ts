@@ -97,7 +97,7 @@ export class OverviewComponent implements OnInit {
 
       this.setLoading(true);
 
-      return this.eventService.getEvent(+params.get('eventId'));
+      return this.eventService.getEvent(+params.get('eventId'), true);
 
     }).subscribe((result: HttpResult<Event>) => {
 
