@@ -64,7 +64,7 @@ export class ParticipantCardComponent implements OnInit {
   }
 
   /*
-  * Indicates if this card component should show it's empty state. This will be true then the
+  * Indicates if this card component should show it's empty state. This will be true when the
   * participants array is empty or null.
   */
   get showEmptyState(): boolean{

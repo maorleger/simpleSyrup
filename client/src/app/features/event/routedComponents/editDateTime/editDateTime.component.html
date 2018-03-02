@@ -1,0 +1,39 @@
+<ssFormPage [@fadeInOutOnLoad]="formState" [style.display]="loading ? 'none' : 'block' ">
+
+	<div inject-page-content>
+
+		<div class="row">
+
+			<div class="col-6">
+				<div class= "label-title">
+					<i class="material-icons md-36">event</i><h2>Date</h2>
+				</div>
+
+				<div class="label-value">
+					Tuesday March 12th 2018
+				</div>
+
+				<div class= "label-title" style="margin-top: 20px;">
+					<i class="material-icons md-36">access_time</i><h2>Time</h2>
+				</div>
+
+				<div class="label-value">
+					9:00pm
+				</div>
+
+			</div>
+
+			<div class="col-6">
+
+				<div class= "label-title">
+					<h3>Submitted By</h3>
+					<!-- <ssParticipantBigChip [participant]="submittedBy"></ssParticipantBigChip> -->
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+</ssFormPage>

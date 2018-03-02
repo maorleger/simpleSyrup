@@ -1,3 +1,158 @@
 <ssCard [title]="'When'" [icon]="'event'" [addLink]="'EditDateTime'" [showOverflowButton]="false">
-	Hey, listen!
+	
+		<!-- VERSION 1 -->
+
+	<div inject-body *ngIf="!showEmptyState && !eventHasOfficalDate">
+
+		<div class="row date-time-row header-row">
+			<span class="col-7">Proposed Date & Time</span>
+			<div class="col-3" style="text-align: center">
+				<span >Votes</span>
+			</div>
+			<span class="col-2" style="padding-left: 5px; padding-right: 5px;">Work for you?</span>
+		</div>
+
+		<div class="row date-time-row">
+			<span class="col-5">Thursday, 10/31/2018</span>
+			<span class="col-2">8:00pm</span>
+			<div class="col-3 vote-count"><span style="color:#4CAF50;">10</span> | <span style="color:red">0</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: #4CAF50">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">clear</i>
+			</button>
+
+		</div>
+
+		<div class="row date-time-row">
+			<span class="col-5">Monday, 1/1/2018</span>
+			<span class="col-2">10:59am</span>
+			<div class="col-3 vote-count"><span style="color:#4CAF50">5</span> | <span style="color:red">2</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: #4CAF50">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">clear</i>
+			</button>
+
+		</div>
+
+		<div class="row date-time-row" style="border-bottom: none;">
+			<span class="col-5">Saturday 12/25/2021</span>
+			<span class="col-2">10:59am</span>
+			<div class="col-3 vote-count"><span style="color:#4CAF50">2</span> | <span style="color:red">6</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: red">clear</i>
+			</button>
+
+		</div>
+
+	</div>
+
+	<!-- VERSION 2: With accept column -->
+
+<!-- 	<div inject-body *ngIf="!showEmptyState">
+
+		<div class="row date-time-row header-row">
+			<span class="col-6">Proposed Date & Time</span>
+			<div class="col-2" style="text-align: center">
+				<span >Votes</span>
+			</div>
+			<span class="col-2" style="padding-left: 5px; padding-right: 5px;">Work for you?</span> 
+
+			<div class="col-2" style="text-align: center">
+				<span tyle="padding-left: 5px; padding-right: 5px;">Accept</span>
+			</div>
+			
+		</div>
+
+		<div class="row date-time-row">
+			<span class="col-4">Thur, 10/31/2018</span>
+			<span class="col-2">8:00pm</span>
+			<div class="col-2 vote-count"><span style="color:#4CAF50;">10</span> | <span style="color:red">0</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: #4CAF50">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">clear</i>
+			</button>
+
+			<div class="col-2" style="text-align:center">
+				<button mat-icon-button>
+					<i class="material-icons md-24">gavel</i>
+				</button>
+			</div>
+
+		</div>
+
+		<div class="row date-time-row">
+			<span class="col-4">Mon, 1/1/2018</span>
+			<span class="col-2">10:59am</span>
+			<div class="col-2 vote-count"><span style="color:#4CAF50">5</span> | <span style="color:red">2</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: #4CAF50">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">clear</i>
+			</button>
+
+			<div class="col-2" style="text-align:center">
+				<button mat-icon-button>
+					<i class="material-icons md-24">gavel</i>
+				</button>
+			</div>
+
+		</div>
+
+		<div class="row date-time-row" style="border-bottom: none;">
+			<span class="col-4">Sat, 12/25/2021</span>
+			<span class="col-2">10:59am</span>
+			<div class="col-2 vote-count"><span style="color:#4CAF50">2</span> | <span style="color:red">6</span></div>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24">check</i>
+			</button>
+
+			<button mat-icon-button class="col-1">
+				<i class="material-icons md-24" style="color: red">clear</i>
+			</button>
+
+			<div class="col-2" style="text-align:center">
+				<button mat-icon-button>
+					<i class="material-icons md-24">gavel</i>
+				</button>
+			</div>
+
+		</div>
+
+	</div> -->
+
+	<div inject-body *ngIf="!showEmptyState && eventHasOfficalDate">
+		
+		<div >
+			<h4 style="color:rgba(0, 0, 0, 0.54);">2018</h4>
+			<h2>Tuesday March 20th</h2>
+			<h2>8:00pm</h2>
+		</div>
+		
+	</div>
+
+	<div inject-body *ngIf="showEmptyState">
+		<span><i>No times have been suggested for this event. Click the '+' to make a suggestion!</i></span>
+	</div>
+
 </ssCard>

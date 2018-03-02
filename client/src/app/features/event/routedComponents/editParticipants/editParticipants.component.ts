@@ -32,7 +32,7 @@ import { UserBigChipComponent } from '../../childComponents/userBigChip/userBigC
 import {ENTER} from '@angular/cdk/keycodes';
 
 const COMMA = 188;
-const USE_MOCK_DATA = false;
+const USE_MOCK_DATA = true;
 
 @Component({
   templateUrl: './editParticipants.component.html',

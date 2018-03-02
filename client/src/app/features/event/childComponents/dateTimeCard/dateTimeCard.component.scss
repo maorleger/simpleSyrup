@@ -1,0 +1,40 @@
+/**TEST CLASSES, CLEAN UP!**/
+.date-time-row{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.date-time-row:hover{
+	background-color: #EEEEEE;
+}
+
+.date-time-row button{
+	max-width: 40px;
+}
+
+.date-time-row i{
+	text-align: center;
+}
+
+.date-time-row span{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;	
+}
+
+.header-row{
+	color: rgba(0,0,0,.54);
+	text-align: left;
+	font-size: 12px;
+}
+
+.vote-count{
+	text-align: center;
+}
+
+.vote-count > span{
+	height: 100%;
+}
