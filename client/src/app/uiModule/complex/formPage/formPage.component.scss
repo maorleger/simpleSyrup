@@ -2,7 +2,7 @@
 
 	$background: map-get($theme, background);
 	$accent: map-get($theme, accent);
-	
+
 	.title-section{
 		text-align: center;
 		padding-top: 30px;
@@ -10,13 +10,25 @@
 		background-color: mat-color($accent, 1);
 	}
 
-	.title-section h2{
+	.title-section{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	.title-section h3{
 		display: inline-block;
 	}
 
 	.page-content{
 		padding: 30px;
+		padding-left: 15px;
+		padding-right: 15px;
 		background-color: mat-color($background, background, 0.98);
+	}
+
+	.page-wrapper.container{
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 
 }
