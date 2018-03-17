@@ -1,13 +1,22 @@
 @mixin ss-formPage($theme) {
 
 	$background: map-get($theme, background);
+	$accent: map-get($theme, accent);
+	
+	.title-section{
+		text-align: center;
+		padding-top: 30px;
+		color: white;
+		background-color: mat-color($accent, 1);
+	}
 
-	.page-wrapper{
-		background-color: mat-color($background, background, 0.98);
+	.title-section h2{
+		display: inline-block;
 	}
 
 	.page-content{
 		padding: 30px;
+		background-color: mat-color($background, background, 0.98);
 	}
 
 }

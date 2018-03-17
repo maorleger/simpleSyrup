@@ -1,7 +1,17 @@
-<div class="container page-wrapper z-depth-1">
+<div class="page-wrapper container">
 
-	<div class="page-content">
-		<ng-content select="[inject-page-content]"></ng-content>
+	<div class="z-depth-1">
+
+		<div *ngIf="showTitle" class="title-section">
+			<div>
+				<h2>{{title}}</h2>
+			</div>
+		</div>
+
+		<div class="page-content">
+			<ng-content select="[inject-page-content]"></ng-content>
+		</div>
+
 	</div>
 
 </div>

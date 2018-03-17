@@ -137,7 +137,7 @@ export class EventService{
 		
 		this.mockEventData = new Event(); 
 		this.mockEventData.id = 10;
-		this.mockEventData.name = "Park Day Bitches!";
+		this.mockEventData.name = "Park Day!";
 		this.mockEventData.participants = this.mockParticipantData;
 
 		//END TEST CODE

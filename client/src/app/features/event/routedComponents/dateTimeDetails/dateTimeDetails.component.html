@@ -1,0 +1,106 @@
+<ssFormPage [title]="'Tuesday March 6th 2018, 9:00pm'" [@fadeInOutOnLoad]="formState" [style.display]="loading ? 'none' : 'block' ">
+
+	<div inject-page-content>
+
+<!-- 		<div class="row">
+
+			<div class="col-6">
+				<div class= "label-title">
+					<i class="material-icons md-36">event</i><h2>Date</h2>
+				</div>
+
+				<div class="label-value">
+					Tuesday March 12th 2018
+				</div>
+
+				<div class= "label-title" style="margin-top: 20px;">
+					<i class="material-icons md-36">access_time</i><h2>Time</h2>
+				</div>
+
+				<div class="label-value">
+					9:00pm
+				</div>
+
+			</div>
+
+			<div class="col-6">
+
+				<div class= "">
+					<div class="row"> 
+						<h3>Submitted By</h3>
+					</div>
+
+					<div>
+						<ssUserBigChip [user]="submittedBy"></ssUserBigChip>
+					</div>
+				</div>
+
+			</div>
+			
+		</div> -->
+
+		<!-- BEGIN VERTICAL STYLE -->
+
+<!-- 	<div class="row votes-section">
+
+			<h3>Votes</h3>
+
+			<div class="col-6 votes-for-section votes-section-title">
+				<i class="material-icons md-36" style="color: #4CAF50">check</i>
+				
+				<div class="row">
+
+					<div class="col-6"  *ngFor="let user of acceptedUsers">
+						<ssUserBigChip [user]="user"></ssUserBigChip>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="col-6 votes-against-section  votes-section-title">
+				<i class="material-icons md-36" style="color: red;">clear</i>
+
+				<div class="row">
+
+					<div class="col-12"  *ngFor="let user of declinedUsers">
+						<ssUserBigChip [user]="user"></ssUserBigChip>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div> -->
+
+		<!-- END VERTICAL STYLE -->
+
+		<!-- BEGIN HORITZONTAL STYLE -->
+
+		<h3 class="votes-header" style="margin-top: 0px;"><i class="material-icons md-36" style="color: #4CAF50">check</i>Like this time</h3>
+
+		<div class="row votes-row">
+			<div class="col-4"  *ngFor="let user of acceptedUsers">
+				<ssUserBigChip [user]="user"></ssUserBigChip>
+			</div>
+		</div>
+
+		<h3 class="votes-header"><i class="material-icons md-36" style="color: red">clear</i>Time Won't Work</h3>
+
+		<div class="row votes-row">
+			<div class="col-4"  *ngFor="let user of declinedUsers">
+				<ssUserBigChip [user]="user"></ssUserBigChip>
+			</div>
+		</div>
+
+		<!-- END HORITZONTAL STYLE -->
+
+		<div class="action-buttons">
+			<button mat-raised-button >Delete</button>
+			<button mat-raised-button color="accent">Set as Official Time</button>
+		</div>
+
+
+	</div>
+
+</ssFormPage>

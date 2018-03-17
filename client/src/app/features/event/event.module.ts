@@ -19,6 +19,7 @@ import { ServiceModule } from '../../serviceModule/service.module'
 import { OverviewComponent } from './routedComponents/overview/overview.component'
 import { EventShellComponent } from './routedComponents/eventShell/eventShell.component'
 import { EditDateTimeComponent } from './routedComponents/editDateTime/editDateTime.component'
+import { DateTimeDetailsComponent } from './routedComponents/dateTimeDetails/dateTimeDetails.component'
 import { EditParticipantsComponent } from './routedComponents/editParticipants/editParticipants.component'
 
 //Child component imports
@@ -47,6 +48,7 @@ import { EventRoutingModule } from './eventRouting.module';
     ],
     declarations: [
         DateTimeCardComponent,
+        DateTimeDetailsComponent,
         EditDateTimeComponent,
     	EditParticipantsComponent,
     	EventShellComponent,
